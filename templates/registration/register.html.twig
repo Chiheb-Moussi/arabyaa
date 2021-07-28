@@ -1,0 +1,511 @@
+{% extends 'frontoffice/base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <!-- content -->
+    <section id="content" class="container pEqual">
+    {{ form_start(registrationForm, {'attr':{'id': 'registration_form'}}) }}
+        {{ form_row(registrationForm._token) }}
+        <div class="addProperty">
+            <h1 class="fontNeuron">Inscription</h1>
+            <ol class="navSteps">
+                <li class="active">
+                    <a href="#tab1" data-toggle="tab">
+                        <span class="text">Coordonnées du compte</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab2" data-toggle="tab">
+                        <span class="text">Information complémentaires</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab3" data-toggle="tab">
+                        <span class="text">Adresse</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab4" data-toggle="tab">
+                        <span class="text">Photo &amp; Documents</span>
+                    </a>
+                </li>
+            </ol>
+            <div class="formContent tab-content" >
+            
+                <div class="tab-pane fade in active" id="tab1" data-id="1">
+                    <header class="contentHead">
+                        <h2 class="fontNeuron">Coordonnées du compte</h2>
+                    </header>
+                    <div class="row">
+                        <div class="col-xs-6" id="registration_form_userType_div">
+                            <div class="form-group">
+                                <label for="registration_form_userType">{{ form_label(registrationForm.userType)}}</label>
+                                {{ form_widget(registrationForm.userType, {'attr':{'class': 'chosen-select'}})}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6" id="registration_form_ministere_div">
+                            <div class="form-group">
+                                <label for="registration_form_ministere">{{ form_label(registrationForm.ministere)}}</label>
+                                {{ form_widget(registrationForm.ministere, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6" id="registration_form_nom_div">
+                            <div class="form-group">
+                                <label for="registration_form_nom">{{ form_label(registrationForm.nom)}}</label>
+                                {{ form_widget(registrationForm.nom, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_prenom_div">
+                            <div class="form-group">
+                                <label for="registration_form_prenom">{{ form_label(registrationForm.prenom)}}</label>
+                                {{ form_widget(registrationForm.prenom, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_email_div">
+                            <div class="form-group">
+                                <label for="registration_form_email">{{ form_label(registrationForm.email)}}</label>
+                                {{ form_widget(registrationForm.email, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_plainPassword_div">
+                            <div class="form-group">
+                                <label for="registration_form_plainPassword">{{ form_label(registrationForm.plainPassword)}}</label>
+                                {{ form_widget(registrationForm.plainPassword, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab2" data-id="2">
+                    <header class="contentHead">
+                        <h2 class="fontNeuron">Information complémentaires</h2>
+                    </header>
+                    <div class="row">
+                        <div class="col-xs-6" id="registration_form_dateNaissance_div">
+                            <div class="form-group">
+                                <label for="registration_form_dateNaissance">{{ form_label(registrationForm.dateNaissance)}}</label>
+                                {{ form_widget(registrationForm.dateNaissance, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6" id="registration_form_tel_div">
+                            <div class="form-group">
+                                <label for="registration_form_tel">{{ form_label(registrationForm.tel)}}</label>
+                                {{ form_widget(registrationForm.tel, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_whatsapp_div">
+                            <div class="form-group">
+                                <label for="registration_form_whatsapp">{{ form_label(registrationForm.whatsapp)}}</label>
+                                {{ form_widget(registrationForm.whatsapp, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_ecole_div">
+                            <div class="form-group">
+                                <label for="registration_form_ecole">{{ form_label(registrationForm.ecole)}}</label>
+                                {{ form_widget(registrationForm.ecole, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_classe_div">
+                            <div class="form-group">
+                                <label for="registration_form_classe">{{ form_label(registrationForm.classe)}}</label>
+                                {{ form_widget(registrationForm.classe, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_iban_div">
+                            <div class="form-group">
+                                <label for="registration_form_iban">{{ form_label(registrationForm.iban)}}</label>
+                                {{ form_widget(registrationForm.iban, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_bic_div">
+                            <div class="form-group">
+                                <label for="registration_form_bic">{{ form_label(registrationForm.bic)}}</label>
+                                {{ form_widget(registrationForm.bic, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12" id="registration_form_fbLink_div">
+                            <div class="form-group">
+                                <label for="registration_form_fbLink">{{ form_label(registrationForm.fbLink)}}</label>
+                                {{ form_widget(registrationForm.fbLink, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-12" id="registration_form_webLink_div">
+                            <div class="form-group">
+                                <label for="registration_form_webLink">{{ form_label(registrationForm.webLink)}}</label>
+                                {{ form_widget(registrationForm.webLink, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    
+                </div>
+                <div class="tab-pane fade" id="tab3" data-id="3">
+                    <header class="contentHead">
+                        <h2 class="fontNeuron">Adresse</h2>
+                    </header>
+                    <div class="row">
+                        <div class="col-xs-6" id="registration_form_pays_div">
+                            <div class="form-group">
+                                <label for="registration_form_pays">{{ form_label(registrationForm.pays)}}</label>
+                                {{ form_widget(registrationForm.pays, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_ville_div">
+                            <div class="form-group">
+                                <label for="registration_form_ville">{{ form_label(registrationForm.ville)}}</label>
+                                {{ form_widget(registrationForm.ville, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6" id="registration_form_gouvernerat_div">
+                            <div class="form-group">
+                                <label for="registration_form_gouvernerat">{{ form_label(registrationForm.gouvernerat)}}</label>
+                                {{ form_widget(registrationForm.gouvernerat, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_codePostal_div">
+                            <div class="form-group">
+                                <label for="registration_form_codePostal">{{ form_label(registrationForm.codePostal)}}</label>
+                                {{ form_widget(registrationForm.codePostal, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12" id="registration_form_adresse_div">
+                            <div class="form-group">
+                                <label for="registration_form_adresse">{{ form_label(registrationForm.adresse)}}</label>
+                                {{ form_widget(registrationForm.adresse, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="tab-pane fade" id="tab4" data-id="4">
+                    <header class="contentHead">
+                        <h2 class="fontNeuron">Photo &amp; Documents</h2>
+                    </header>
+                    
+                    <div class="row">
+                        <div class="col-xs-12" id="registration_form_photoFile_div">
+                            <div class="form-group">
+                                <label for="registration_form_photoFile">{{ form_label(registrationForm.photoFile)}}</label>
+                                {{ form_widget(registrationForm.photoFile, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6" id="registration_form_cinFile_div">
+                            <div class="form-group">
+                                <label for="registration_form_cinFile">{{ form_label(registrationForm.cinFile)}}</label>
+                                {{ form_widget(registrationForm.cinFile, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_passportFile_div">
+                            <div class="form-group">
+                                <label for="registration_form_passportFile">{{ form_label(registrationForm.passportFile)}}</label>
+                                {{ form_widget(registrationForm.passportFile, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6" id="registration_form_cvFile_div">
+                            <div class="form-group">
+                                <label for="registration_form_cvFile">{{ form_label(registrationForm.cvFile)}}</label>
+                                {{ form_widget(registrationForm.cvFile, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_motivationLetterFile_div">
+                            <div class="form-group">
+                                <label for="registration_form_motivationLetterFile">{{ form_label(registrationForm.motivationLetterFile)}}</label>
+                                {{ form_widget(registrationForm.motivationLetterFile, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6" id="registration_form_bulletinFile_div">
+                            <div class="form-group">
+                                <label for="registration_form_bulletinFile">{{ form_label(registrationForm.bulletinFile)}}</label>
+                                {{ form_widget(registrationForm.bulletinFile, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div>
+
+                        {# <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="registration_form_diplomes">{{ form_label(registrationForm.diplomes)}}</label>
+                                {{ form_widget(registrationForm.diplomes, {'attr':{'class': 'form-control'}})}}
+                            </div>
+                        </div> #}
+                    
+                    
+                    </div>
+                </div>
+                <p>Les champs avec * ne sont pas obligatoires</p>
+                <ul class="btnArea" style="list-style:none">
+                    <li class="next"><button id="next" type="button"  class="btn btnDark ">Suivant<i class="fi flaticon-arrows"></i></button></li>
+                    <li class="previous" style="float:left"><button disabled id="previous" type="button" class="btn btnDark"><i class="fi flaticon-arrows-1"></i>&nbsp;&nbsp;Précédent</button></li>
+                </ul>
+                {# <div class="btnArea">
+                <a href="#" class="btn btnDark">Next <i class="fi flaticon-arrows"></i></a>
+                </div> #}
+            
+            </div>
+        </div>
+    {{ form_end(registrationForm, {'render_rest': false}) }}
+    </section>
+    
+{% endblock %}
+{% block javascripts %}
+    
+    <script>
+        $(document).ready(function(){
+            
+            showHideFields();
+
+            $('#registration_form_userType').on('change', function(){
+                showHideFields();
+            });
+
+            $('.form-control').on('change',function(){
+                if($(this).val()){
+                    $(this).removeClass('has-error');
+                }
+            });
+            
+            //remove active in tabs exept current
+            $('a[data-toggle="tab"]').on('click',function(){
+                if($(this).attr('href')==='#tab1') {
+                    $('#previous').prop( "disabled", true );
+                }else {
+                    $('#previous').prop( "disabled", false );
+                }
+                if($(this).attr('href')==='#tab4') {
+                    $('#next').html('Enregistrer')
+                }else {
+                    $('#next').html('Suivant<i class="fi flaticon-arrows"></i>')
+                }
+                $('ol li').each(function(i){
+                    $(this).removeClass('active'); 
+                });
+            });
+
+            $('#previous').on('click',function(){
+                var tab_id = $('.tab-pane.fade.in.active').data('id');
+                var previous_tab = tab_id - 1
+                $('a[href="#tab'+previous_tab+'"]').trigger('click');
+            });
+            //validate each step
+            $('#next').on('click',function(){
+                var tab_id = $('.tab-pane.fade.in.active').data('id');
+                var userType= $('#registration_form_userType').val();
+                var errors = 0;
+                if(tab_id ===1) {
+                    
+                    if(userType !=="Partenariat") {
+                        if(!$('#registration_form_nom').val()) {
+                            $('#registration_form_nom').addClass('has-error');
+                            errors++
+                        } 
+                        if(!$('#registration_form_prenom').val()) {
+                            $('#registration_form_prenom').addClass('has-error');
+                            errors++
+                        } 
+                    }else {
+                        
+                        if(!$('#registration_form_ministere').val()) {
+                            $('#registration_form_ministere').addClass('has-error');
+                            errors++
+                        } 
+                    }
+                    if(!$('#registration_form_email').val()) {
+                        $('#registration_form_email').addClass('has-error');
+                        errors++
+                    }
+                    if(!$('#registration_form_plainPassword').val()) {
+                        $('#registration_form_plainPassword').addClass('has-error');
+                        errors++
+                    }
+                }
+
+                if(tab_id ===2) {
+
+                    if(userType !=="Partenariat") {
+                        if(!$('#registration_form_dateNaissance').val()) {
+                            $('#registration_form_dateNaissance').addClass('has-error');
+                            errors++
+                        }
+                        if(!$('#registration_form_whatsapp').val()) {
+                            $('#registration_form_whatsapp').addClass('has-error');
+                            errors++
+                        }
+                        if(!$('#registration_form_iban').val()) {
+                            $('#registration_form_iban').addClass('has-error');
+                            errors++
+                        }
+                        if(!$('#registration_form_bic').val()) {
+                            $('#registration_form_bic').addClass('has-error');
+                            errors++
+                        }
+                        if(!$('#registration_form_dateNaissance').val()) {
+                            $('#registration_form_dateNaissance').addClass('has-error');
+                            errors++
+                        }
+
+                        if(userType==="Etudiant"){
+                            if(!$('#registration_form_ecole').val()) {
+                                $('#registration_form_ecole').addClass('has-error');
+                                errors++
+                            }
+                            if(!$('#registration_form_classe').val()) {
+                                $('#registration_form_classe').addClass('has-error');
+                                errors++
+                            }
+                        }
+                    }
+
+                    if(!$('#registration_form_tel').val()) {
+                        $('#registration_form_tel').addClass('has-error');
+                        errors++
+                    }
+                }
+
+                if(tab_id ===3) {
+                    if(!$('#registration_form_pays').val()) {
+                        $('#registration_form_pays').addClass('has-error');
+                        errors++
+                    }
+                    if(!$('#registration_form_ville').val()) {
+                        $('#registration_form_ville').addClass('has-error');
+                        errors++
+                    }
+                    if(!$('#registration_form_gouvernerat').val()) {
+                        $('#registration_form_gouvernerat').addClass('has-error');
+                        errors++
+                    }
+                    if(!$('#registration_form_codePostal').val()) {
+                        $('#registration_form_codePostal').addClass('has-error');
+                        errors++
+                    }
+                    if(!$('#registration_form_adresse').val()) {
+                        $('#registration_form_adresse').addClass('has-error');
+                        errors++
+                    }
+                }
+
+                if(tab_id===4){
+                    /*if(userType!=="Partenariat"){
+                        
+                    }*/
+
+                    if(!$('#registration_form_photoFile_file').val()) {
+                        $('#registration_form_photoFile_file').addClass('has-error');
+                        errors++
+                    }
+                }
+
+                if(errors ===0 && tab_id < 4) {
+                    var next_tab = tab_id+1
+                    $('a[href="#tab'+tab_id+'"]').parent().addClass('completed');
+                    $('a[href="#tab'+next_tab+'"]').trigger('click');
+                }
+                if(errors) {
+                    $('a[href="#tab'+tab_id+'"]').parent().removeClass('completed');
+                }
+
+                if(errors ===0 && tab_id ===4){
+                    $('#registration_form').submit();
+                }
+                
+            });
+        });
+
+        function showHideFields() {
+            var userType= $('#registration_form_userType').val();
+            if(userType==='Etudiant'){
+                $('#registration_form_ministere_div').hide();
+                $('#registration_form_webLink_div').hide();
+                $('#registration_form_cvFile_div').hide();
+                $('#registration_form_bulletinFile_div').hide();
+                $('#registration_form_motivationLetterFile_div').hide();
+                $('#registration_form_nom_div').show();
+                $('#registration_form_prenom_div').show();
+                $('#registration_form_ecole_div').show();
+                $('#registration_form_classe_div').show();
+                $('#registration_form_cinFile_div').show();
+                $('#registration_form_passportFile_div').show();
+                $('#registration_form_dateNaissance_div').show();
+                $('#registration_form_whatsapp_div').show();
+                $('#registration_form_iban_div').show();
+                $('#registration_form_bic_div').show();
+            }else if(userType==='Parent') {
+                $('#registration_form_ministere_div').hide();
+                $('#registration_form_webLink_div').hide();
+                $('#registration_form_cvFile_div').hide();
+                $('#registration_form_bulletinFile_div').hide();
+                $('#registration_form_motivationLetterFile_div').hide();
+                $('#registration_form_nom_div').show();
+                $('#registration_form_prenom_div').show();
+                $('#registration_form_ecole_div').hide();
+                $('#registration_form_classe_div').hide();
+                $('#registration_form_cinFile_div').show();
+                $('#registration_form_passportFile_div').show();
+                $('#registration_form_dateNaissance_div').show();
+                $('#registration_form_whatsapp_div').show();
+                $('#registration_form_iban_div').show();
+                $('#registration_form_bic_div').show();
+            }else if(userType==='Enseignant' || userType==='Inspecteur' || userType==='Administrateur') {
+                $('#registration_form_ministere_div').hide();
+                $('#registration_form_webLink_div').hide();
+                $('#registration_form_cvFile_div').show();
+                $('#registration_form_bulletinFile_div').show();
+                $('#registration_form_motivationLetterFile_div').show();
+                $('#registration_form_nom_div').show();
+                $('#registration_form_prenom_div').show();
+                $('#registration_form_ecole_div').hide();
+                $('#registration_form_classe_div').hide();
+                $('#registration_form_cinFile_div').show();
+                $('#registration_form_passportFile_div').show();
+                $('#registration_form_dateNaissance_div').show();
+                $('#registration_form_whatsapp_div').show();
+                $('#registration_form_iban_div').show();
+                $('#registration_form_bic_div').show();
+            }else if(userType==='Ambassadeur') {
+                $('#registration_form_ministere_div').hide();
+                $('#registration_form_webLink_div').hide();
+                $('#registration_form_cvFile_div').show();
+                $('#registration_form_bulletinFile_div').hide();
+                $('#registration_form_motivationLetterFile_div').hide();
+                $('#registration_form_nom_div').show();
+                $('#registration_form_prenom_div').show();
+                $('#registration_form_ecole_div').hide();
+                $('#registration_form_classe_div').hide();
+                $('#registration_form_cinFile_div').hide();
+                $('#registration_form_passportFile_div').hide();
+                $('#registration_form_dateNaissance_div').show();
+                $('#registration_form_whatsapp_div').show();
+                $('#registration_form_iban_div').show();
+                $('#registration_form_bic_div').show();
+            }else if(userType==='Partenariat') {
+                $('#registration_form_ministere_div').show();
+                $('#registration_form_webLink_div').show();
+                $('#registration_form_cvFile_div').hide();
+                $('#registration_form_bulletinFile_div').hide();
+                $('#registration_form_motivationLetterFile_div').hide();
+                $('#registration_form_nom_div').hide();
+                $('#registration_form_prenom_div').hide();
+                $('#registration_form_ecole_div').hide();
+                $('#registration_form_classe_div').hide();
+                $('#registration_form_cinFile_div').hide();
+                $('#registration_form_passportFile_div').hide();
+                $('#registration_form_dateNaissance_div').hide();
+                $('#registration_form_whatsapp_div').hide();
+                $('#registration_form_iban_div').hide();
+                $('#registration_form_bic_div').hide();
+            }
+        }
+    </script>
+    
+{% endblock %}
