@@ -1,0 +1,18 @@
+mkdir backend & ce backend
+pipenv install django
+django-admin startproject config .	
+python manage.py createsuperuser
+pipenv install psycopg2-binary
+
+python manage.py migrate
+python manage.py runserver
+
+artifactory gfrog
+tag
+push scratch
+realease management
+poetry
+test unitaire 
+test integration
+kafka
+pydantic

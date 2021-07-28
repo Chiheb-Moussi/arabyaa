@@ -1,0 +1,39 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        user_photo:
+            uri_prefix: /uploads/user/photo
+            upload_destination: '%kernel.project_dir%/public/uploads/user/photo'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        
+        user_passport:
+            uri_prefix: /uploads/user/passport
+            upload_destination: '%kernel.project_dir%/public/uploads/user/passport'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        user_cin:
+            uri_prefix: /uploads/user/cin
+            upload_destination: '%kernel.project_dir%/public/uploads/user/cin'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        
+        user_cv:
+            uri_prefix: /uploads/user/cv
+            upload_destination: '%kernel.project_dir%/public/uploads/user/cv'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        
+        user_diplome:
+            uri_prefix: /uploads/user/diplome
+            upload_destination: '%kernel.project_dir%/public/uploads/user/diplome'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        user_motivation_letter:
+            uri_prefix: /uploads/user/motivation_letter
+            upload_destination: '%kernel.project_dir%/public/uploads/user/motivation_letter'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        user_bulletin:
+            uri_prefix: /uploads/user/bulletin
+            upload_destination: '%kernel.project_dir%/public/uploads/user/bulletin'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            

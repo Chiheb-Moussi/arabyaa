@@ -1,0 +1,75 @@
+{% extends 'frontoffice/base.html.twig' %}
+
+{% block title %}Connection{% endblock %}
+
+{% block body %}
+    <form method="post">
+        <section id="content" class="container pEqual">
+            <div class="addProperty" style="max-width: 400px">
+                <h1 class="fontNeuron">Authentification</h1>
+                <div class="formContent">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="inputEmail">Mot de passe</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {% if error %}
+                                <div class="alert alert-danger" style="color: red">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary col-xs-12" type="submit">
+                                Se connecter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </form>
+
+{# <form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {# {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.email }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %} #}
+
+{#    <h1 class="h3 mb-3 font-weight-normal">S'authentifier</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Mot de passe</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" class="btn btnDark" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Se connecter
+    </button>
+</form>#}
+{% endblock %} 
