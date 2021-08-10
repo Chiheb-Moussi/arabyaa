@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\FrontOffice;
+namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +16,6 @@ class ProfileController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
-        return $this->render('frontoffice/profile/index.html.twig', ['user'=>$user]);
+        return $this->render('profile/index.html.twig', ['user'=>$user]);
     }
 }

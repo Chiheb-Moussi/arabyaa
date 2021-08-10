@@ -1,22 +1,18 @@
 <?php
 
-namespace App\Controller\FrontOffice;
+namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/contact")
- */
-class ContactController extends AbstractController
+class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="contact")
+     * @Route("/", name="home")
      */
     public function index(): Response
     {
-        return $this->render('frontoffice/contact/index.html.twig', [
-        ]);
+        return $this->render('home/index.html.twig');
     }
 }

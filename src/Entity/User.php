@@ -39,6 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     const ROLE_AMBASSADEUR='ROLE_AMBASSADEUR';
     const ROLE_PARTENARIAT='ROLE_PARTENARIAT';
     const ROLE_ADMINISTRATEUR='ROLE_ADMINISTRATEUR';
+    const ROLE_SUPER_ADMIN='ROLE_SUPER_ADMIN';
 
     /** 
      * @var array 
