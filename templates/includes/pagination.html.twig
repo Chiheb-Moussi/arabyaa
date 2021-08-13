@@ -1,0 +1,35 @@
+
+{% if pageCount > 1 %}
+<nav role="navigation" class="navigation pagination pagination1 fontNeuron">
+    <div class="nav-links">
+        {% if previous is defined %}
+            <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="prev page-numbers">Précedent</a>
+        {% else %}
+            <a href="#" class="prev page-numbers isDisabled">Précedent</a>
+            
+        {% endif %}
+        
+        {% if first is defined and first not in pagesInRange %}
+            <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="page-numbers">{{ first }}</a>
+            <span class="page-numbers dots">&hellip;</span>
+        {% endif %}
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <a href="{{ path(route, query|merge({(pageParameterName): page})) }}" class="page-numbers">{{ page }}</a>
+            {% else %}
+                <span class="page-numbers current">{{ page }}</span>
+            {% endif %}
+        {% endfor %}
+        {% if last is defined and last not in pagesInRange %}
+            <span class="page-numbers dots">&hellip;</span>
+            <a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="page-numbers">{{ last }}</a>
+        {% endif %}
+        
+        {% if next is defined %}
+            <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="next page-numbers">Suivant</a>
+        {% else %}
+            <a href="#" class="next page-numbers isDisabled">Suivant</a>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}

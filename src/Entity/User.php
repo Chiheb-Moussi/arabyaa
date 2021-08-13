@@ -30,6 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     const USER_TYPE_AMBASSADEUR='Ambassadeur';
     const USER_TYPE_PARTENARIAT='Partenariat';
     const USER_TYPE_ADMINISTRATEUR='Administrateur';
+    const USER_TYPE_SUPER_ADMIN = 'Super Admin';
 
 
     const ROLE_ETUDIANT='ROLE_ETUDIANT';
@@ -39,6 +40,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     const ROLE_AMBASSADEUR='ROLE_AMBASSADEUR';
     const ROLE_PARTENARIAT='ROLE_PARTENARIAT';
     const ROLE_ADMINISTRATEUR='ROLE_ADMINISTRATEUR';
+    const ROLE_SUPER_ADMIN='ROLE_SUPER_ADMIN';
+
+    const STATUS_EN_ATTENTE = 'En attente';
+    const STATUS_APPROUVE = 'Approuvé';
+    const STATUS_REFUSE = 'Refusé';
 
     /** 
      * @var array 
@@ -52,6 +58,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         self::ROLE_PARTENARIAT      => self::ROLE_PARTENARIAT,
         self::USER_TYPE_ADMINISTRATEUR    => self::ROLE_ADMINISTRATEUR,
     ];
+
+    
 
     
 
@@ -267,12 +275,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $posts;
+
+    
+
 
 
     public function __construct()
     {
         $this->fils = new ArrayCollection();
         $this->diplomes = new ArrayCollection();
+        $this->status = self::STATUS_EN_ATTENTE;
+        $this->posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -305,7 +327,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     public function getUsername(): string
     {
-        return (string) $this->username;
+        $username = "";
+        if($this->userType == self::USER_TYPE_PARTENARIAT) {
+            $username = $this->ministere;
+        }else {
+            $username = $this->nom." ".$this->prenom;
+        }
+        return $username;
     }
 
     /**
@@ -469,6 +497,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->pays = $pays;
 
         return $this;
+    }
+
+    public function getFullAddress(): ?string
+    {
+        return $this->adresse.', '.$this->codePostal.', '.$this->ville.', '.$this->pays;
     }
 
     public function getTel(): ?string
@@ -836,9 +869,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return array<string>
      */
-    public static function getAvailableUserTypes()
+    public static function getAvailableUserTypes($include_super_admin=false)
     {
-        return [
+        $availableUserTypes =[
             self::USER_TYPE_ETUDIANT,
             self::USER_TYPE_ENSEIGNANT,
             self::USER_TYPE_PARENT,
@@ -847,7 +880,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             self::USER_TYPE_PARTENARIAT,
             self::USER_TYPE_ADMINISTRATEUR
         ];
+        if($include_super_admin) $availableUserTypes[]=self::USER_TYPE_SUPER_ADMIN;
+
+        return $availableUserTypes;
     }
+
+    public function isApproved(): ?bool
+    {
+        return $this->status == self::STATUS_APPROUVE;
+    }
+
+
+    public function isRefused(): ?bool
+    {
+        return $this->status == self::STATUS_REFUSE;
+    }
+
+    
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getUsername();
+    }
+
+    
 
     
 

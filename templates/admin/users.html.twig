@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+{% block stylesheets %}
+<style>
+main {
+    background: #f0f9fb;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+    <!-- content -->
+    <section id="content" class="container pabIndent" style="padding-top:50px">
+        <!-- contentFiltersHeadingWrap -->
+        <header class="contentFiltersHeadingWrap row">
+            <div class="col-xs-12 col-sm-10">
+                <h1 class="fontNeuron">Liste des utilisaterus</h1>
+            </div>
+        </header>
+        <!-- userProfile -->
+        <div class="userProfile">
+            <div class="row">
+                <!-- leftMenu -->
+                {% include "admin/_left_menu.html.twig" %}
+                
+                <div class="col-xs-12 col-sm-8 col-lg-9">
+                    <!-- accountData -->
+                    <div class="accountData">
+                        <div class="head">
+                        <h4 class="fontNeuron">Liste des utilisaterus</h4>
+                        <div class="sortGroup">
+                            <strong class="groupTitle fwNormal">Filtrer par:</strong>
+                            <div class="dropdown">
+                            <button aria-expanded="true" aria-haspopup="false" data-toggle="dropdown" id="sortGroup" type="button" class="dropdown-toggle buttonReset">{{selected_userType }} <i class="icn fas fa-chevron-down"></i></button>
+                            <ul aria-labelledby="sortGroup" class="dropdown-menu dropdown-menu-right">
+                                {% for userType in not_selected_userTypes %}
+                                    {% if userType == 'Tous les utilisateurs' %}
+                                        <li><a href="?userType=">{{ userType }}</a></li>
+                                    {% else %}
+                                        <li><a href="?userType={{ userType }}">{{ userType }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                            </div>
+                        </div>
+                        </div>
+                        <!-- propertiesList -->
+                        <div class="propertiesList">
+                            {% for user in users %}
+                                
+                            <article class="propertyRow">
+                                <div class="info">
+                                    <div class="imgProfile" style="border-radius: 50%">
+                                        <a href=""><img src="https://via.placeholder.com/100x100" alt="photo" width="100" height="100"></a>
+                                    </div>
+                                    <div class="textBox">
+                                        <h4 class="fontNeuron"><a href="properties-single1.html">{{ user.username }}</a></h4>
+                                        <address><i class="fi flaticon-pin-1"></i>{{ user.fullAddress }} </address>
+                                        <div class="priceArea">
+                                        <span class="price fontNeuron">{{ user.userType }}</span>
+                                        <time class="date" title="date de l'inscription">{{ user.createdAt|date('d/m/Y') }}</time>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btnArea">
+                                    {% if user.status == 'En attente'%}
+                                        {% set bgColor = 'bgColorGold' %}
+                                    {% elseif user.status == 'Refusé'%}
+                                        {% set bgColor = 'bgColorRed' %}
+                                    {% else %}
+                                        {% set bgColor = 'bgColorPrimaryDark' %}
+                                    {% endif %}
+                                    <span class="status fontNeuron {{ bgColor }}">{{ user.status }}</span>
+                                    <ul class="links list-unstyled">
+                                        <li><a href="#"><i class="fa fa-eye"></i>Voir</a></li>
+                                        {% if user.userType != 'Super Admin'%}
+                                            <li><a href="{{ path('deleteUser', {id: user.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </article>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                    <!-- pagination -->
+                    {{ knp_pagination_render(users) }}
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

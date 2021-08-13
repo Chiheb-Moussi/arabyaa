@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
         "gedmo/doctrine-extensions": "^3.1",
+        "knplabs/knp-paginator-bundle": "^5.6",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.3.*",
@@ -46,6 +47,8 @@
         "vich/uploader-bundle": "^1.18"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fzaninotto/faker": "^1.9",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "^5.3",
         "symfony/css-selector": "^5.3",
