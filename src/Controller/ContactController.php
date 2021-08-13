@@ -16,7 +16,9 @@ class ContactController extends AbstractController
      */
     public function index(): Response
     {
+        $selected_menu = "contact";
         return $this->render('contact/index.html.twig', [
+            'selected_menu'=>$selected_menu
         ]);
     }
 }

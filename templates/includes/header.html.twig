@@ -9,8 +9,7 @@
                     <!-- logo -->
                     <div class="logo logoCentered" style="text-align: center;">
                         <a href="/" class="fontNeuron blockH text-uppercase colorPrimary">
-                            <span>ARABYAA</span>
-                            {# <img style="display: block;margin: 0 auto;" src="{{ asset('images/arabyia2.png') }}" alt="Arabya"> #}
+                            <span>ARAABYA</span>
                         </a>
                     </div>
                 </div>
@@ -30,8 +29,7 @@
                             <!-- logo -->
                             <div class="logo">
                                 <a href="/" class="fontNeuron blockH text-uppercase colorPrimary">
-                                    ARABYAA
-                                    {# <img src="{{ asset('images/arabyia2.png') }}" alt="Arabya"> #}
+                                    ARAABYA
                                 </a>
                             </div>
                         </div>
@@ -83,15 +81,16 @@
                             <strong class="h elemenBlock h4 textWhite text-center hidden-sm hidden-md hidden-lg menuTitle fontNeuron" id="menu-title">Menu</strong>
                             <!-- pageMainNav -->
                             <ul class="nav navbar-nav pageMainNav pageMainNav1">
-                                <li class="active">
-                                    <a href="/" >Acceuil</a>
+                                <li {% if selected_menu is not defined %} class="active" {% endif %}>
+                                    <a href="{{ path('home') }}" >Acceuil</a>
                                 </li>
-                                <li>
-                                    <a href="/news">Actualités</a>
+                                <li {% if selected_menu is defined and selected_menu =='post' %} class="active" {% endif %}>
+                                    <a href="{{ path('post_index') }}">Actualités</a>
                                 </li>
-                                <li>
-                                    <a href="/contact">Contact</a>
+                                <li {% if selected_menu is defined and selected_menu =='contact' %} class="active" {% endif %}>
+                                    <a href="{{ path('contact') }}">Contact</a>
                                 </li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -100,6 +99,14 @@
                         <!-- UserLinksList -->
                         <ul class="list-unstyled UserLinksList">
                             {% if app.user %}
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                    <li>
+                                        <a href="/admin" >
+                                            <i class="fi flaticon-squares icn"></i>
+                                            <strong class="text fwNormal hidden-xs hidden-sm">Espace admin</strong>
+                                        </a>
+                                    </li>
+                                {% endif %}
                             <li>
                                 <a href="/profile" >
                                     <i class="fi flaticon-social icn"></i>

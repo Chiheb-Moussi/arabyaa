@@ -36,4 +36,9 @@ vich_uploader:
             uri_prefix: /uploads/user/bulletin
             upload_destination: '%kernel.project_dir%/public/uploads/user/bulletin'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        post_photo:
+            uri_prefix: /uploads/post/image
+            upload_destination: '%kernel.project_dir%/public/uploads/user/image'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
             

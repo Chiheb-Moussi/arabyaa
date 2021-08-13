@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+    <div class="col-xs-12" >
+        <div class="form-group">
+            <label for="">{{ form_label(form.title)}}</label>
+            {{ form_widget(form.title, {'attr':{'class': 'form-control'}})}}
+        </div>
+    </div>
+    <div class="col-xs-12" >
+        <div class="form-group">
+            <label for="">{{ form_label(form.content)}}</label>
+            {{ form_widget(form.content, {'attr':{'class': 'form-control'}})}}
+        </div>
+    </div>
+
+    <div class="col-xs-6" >
+        <div class="form-group">
+            <label for="">{{ form_label(form.type)}}</label>
+            {{ form_widget(form.type, {'attr':{'class': 'form-control'}})}}
+        </div>
+    </div>
+    <div class="col-xs-12" id="registration_form_photoFile_div">
+        <div class="form-group">
+            <label for="registration_form_photoFile">{{ form_label(form.imageFile)}}</label>
+            {{ form_widget(form.imageFile, {'attr':{'class': 'form-control'}})}}
+        </div>
+    </div>
+    <br><br>
+    <div class="col-xs-12" id="registration_form_photoFile_div">
+        <button type="btn" class="btn alighRight btnSecondary buttonL fontNeuron">Ajouter</button>
+    </div>
+{{ form_end(form) }}
