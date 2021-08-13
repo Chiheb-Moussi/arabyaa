@@ -27,7 +27,7 @@ main {
             <aside class="profileSidebar">
                 <header class="head">
                 <div class="imgProfile">
-                    <img src="https://via.placeholder.com/74x74" alt="" width="74" height="74">
+                    <img src="{{ vich_uploader_asset(app.user) }}" alt="" width="74" height="74">
                 </div>
                 <div class="info">
                     <span class="text">{{ app.user.nom ~' '~ app.user.prenom}}</span>

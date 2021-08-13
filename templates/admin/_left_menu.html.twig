@@ -3,7 +3,7 @@
     <aside class="profileSidebar">
         <header class="head">
             <div class="imgProfile">
-                <img src="https://via.placeholder.com/74x74" alt="" width="74" height="74">
+                <img src="{{ vich_uploader_asset(app.user) }}" alt="" width="74" height="74">
             </div>
             <div class="info">
                 <span class="text">{{ app.user.nom ~' '~ app.user.prenom}}</span>
@@ -28,14 +28,9 @@
             <span>Actualités</span>
             </a>
         </li>
+        
         <li>
-            <a href="#">
-            <i class="fa fa-plus"></i>
-            <span>Ajouter actualité</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
+            <a href="/logout">
             <i class="fa fa-sign-out-alt"></i>
             <span>Se déconnecter</span>
             </a>
