@@ -1,6 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        photo_path: '%kernel.project_dir%/public/uploads/user/photo/'
 
 when@test:
     twig:
         strict_variables: true
+
+

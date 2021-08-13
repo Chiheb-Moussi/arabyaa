@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    
+    <!-- twoColumns -->
+    <section class="twoColumns container" style="padding-top:50px">
+        <!-- contentFiltersHeadingWrap -->
+        <header class="contentFiltersHeadingWrap row">
+            <div class="col-xs-12 col-sm-10">
+                
+                <h1 class="fontNeuron">{{ post.type }}</h1>
+            </div>
+            
+        </header>
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <!-- content -->
+                <div id="content">
+                    <div class="post-detail">
+                        <!-- newsPostColumn -->
+                        <article class="accountData newsPostColumn newsPostColumn2 bgWhite bdr-none mb-30">
+                            <div class="aligncenter">
+                                <img src="https://via.placeholder.com/750x400" alt="image description">
+                            </div>
+                            <h2 class="fontNeuron">{{ post.title}}</h2>
+                            <p>
+                                <a href="#" class="btn btnSmall btn-info">{{ post.user.username }}</a>
+                                <time >{{ post.createdAt|date('d/m/Y')}}</time>
+                            </p>
+                            <p>{{ post.content }}</p>
+                        </article>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <!-- sidebar -->
+                <aside id="sidebar">
+                    <!-- widgetRecentPosts -->
+                    <section class="widget widgetPadding widgetRecentPosts bgWhite">
+                        <h3 class="fontNeuron fwBold text-capitalize">Dernières actualités</h3>
+                        <!-- widgetRecentPostsList -->
+                        <ul class="list-unstyled widgetRecentPostsList padlReset">
+                            {% for latest_post in latest_posts %}
+                                <li>
+                                    <div class="alignleft">
+                                        <a href="{{ path('post_show', {slug: post.slug}) }}"><img src="https://via.placeholder.com/110x80" alt="image description"></a>
+                                    </div>
+                                    <div class="descrWrap">
+                                        <h4 class="fontNeuron fwBold"><a href="properties-single1.html">{{ post.title }}</a></h4>
+                                        <p>{{ post.createdAt|date('d/m/Y') }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                    
+                </aside>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

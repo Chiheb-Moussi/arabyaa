@@ -10211,6 +10211,7 @@ h6 a:active, .h6 a:hover, .h6 a:focus, .h6 a:active {
   display: block;
   color: #8e99a3;
   padding: 5px 20px;
+  cursor: pointer
 }
 
 .postsFiltersList > li > a.active {
@@ -10500,6 +10501,12 @@ h6 a:active, .h6 a:hover, .h6 a:focus, .h6 a:active {
 
 .postColumn p {
   margin: 0;
+
+}
+
+.postColumn .post_content {
+  height: 100px;
+  padding-bottom: 10px;
 }
 
 /* postHoverLinskList styles */
@@ -16895,7 +16902,7 @@ h6 a:active, .h6 a:hover, .h6 a:focus, .h6 a:active {
   padding: 2px 15px 3px;
   border-radius: 3px;
   line-height: 20px;
-  background: var(--primaryDark-color);
+ 
   color: #fff;
   text-align: center;
   border: 0;
@@ -18010,6 +18017,59 @@ section#map-with-listing {
 }
 .logo a:hover, .logo a:focus {
   color: var(--primary-color);
+}
+
+.bgColorPrimary {
+  background: var(--primary-color);
+}
+
+.bgColorPrimaryDark {
+  background: var(--primaryDark-color);
+}
+
+.bgColorBlue {
+  background: #4c58a4;
+}
+.bgColorLightBlue {
+  background: #2196f3;
+}
+
+.bgColorGold {
+  background: rgba(240, 173, 78, 0.9);
+}
+.bgColorRed {
+  background: #b51818;
+}
+
+.cardInfo {
+  padding:10px;
+  width: 100%;
+  height: 100px;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.cardInfo .cardInfo__title {
+  font-size:16px;
+}
+.cardInfo .cardInfo__bigNumber {
+  font-size:24px;
+}
+
+.cardInfo i {
+  float: right
+}
+
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.dropdown-menu > li > a {
+  cursor:pointer;
 }
 
 

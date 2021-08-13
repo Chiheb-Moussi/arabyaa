@@ -30,18 +30,18 @@ main {
                     <img src="https://via.placeholder.com/74x74" alt="" width="74" height="74">
                 </div>
                 <div class="info">
-                    <span class="text">{{ app.user.nom ~ app.user.prenom}}</span>
+                    <span class="text">{{ app.user.nom ~' '~ app.user.prenom}}</span>
                 </div>
                 </header>
                 <ul class="navUser list-unstyled">
                 <li class="active">
-                    <a href="#">
+                    <a href="{{ path('user_profile') }}">
                     <i class="far fa-user"></i>
                     <span>Paramètres du compte</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ path('actualites')}}">
                     <i class="fi flaticon-house"></i>
                     <span>Mes actualités</span>
                     </a>
@@ -53,7 +53,7 @@ main {
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ path('post_new') }}">
                     <i class="fa fa-plus"></i>
                     <span>Ajouter actualité</span>
                     </a>
