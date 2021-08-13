@@ -21,7 +21,7 @@
                         <!-- newsPostColumn -->
                         <article class="accountData newsPostColumn newsPostColumn2 bgWhite bdr-none mb-30">
                             <div class="aligncenter">
-                                <img src="https://via.placeholder.com/750x400" alt="image description">
+                                <img src="{{ vich_uploader_asset(post) }}" alt="image description">
                             </div>
                             <h2 class="fontNeuron">{{ post.title}}</h2>
                             <p>
@@ -46,7 +46,7 @@
                             {% for latest_post in latest_posts %}
                                 <li>
                                     <div class="alignleft">
-                                        <a href="{{ path('post_show', {slug: post.slug}) }}"><img src="https://via.placeholder.com/110x80" alt="image description"></a>
+                                        <a href="{{ path('post_show', {slug: post.slug}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="image description"></a>
                                     </div>
                                     <div class="descrWrap">
                                         <h4 class="fontNeuron fwBold"><a href="properties-single1.html">{{ post.title }}</a></h4>

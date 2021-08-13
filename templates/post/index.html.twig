@@ -69,7 +69,7 @@
                                 <div>
                                     <div class="imgHolder">
                                         <a href="{{ path('post_show', {slug: post.slug}) }}">
-                                            <img src="https://via.placeholder.com/360x260" alt="image description">
+                                            <img src="{{ vich_uploader_asset(post) }}" alt="image description">
                                         </a>
                                     </div>
                                 </div>
