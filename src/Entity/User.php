@@ -285,6 +285,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $posts;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
     
 
 
@@ -295,6 +300,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->diplomes = new ArrayCollection();
         $this->status = self::STATUS_EN_ATTENTE;
         $this->posts = new ArrayCollection();
+        $this->image = "avatar.jpg";
     }
 
     public function getId(): ?int
@@ -943,6 +949,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->getUsername();
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
     }
 
     

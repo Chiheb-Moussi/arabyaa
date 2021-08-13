@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * @Route("/admin")
  */
@@ -65,6 +66,25 @@ class AdminController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
+    /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
+     * @Route("/update/user_status/{id}", name="update_user_status")
+     */
+    public function updateUserStatus(User $user, Request $request):Response
+    {
+        $status = $request->query->get('status','');
+        if($status)
+        {
+            $user->setStatus($status);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            
+        }
 
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);

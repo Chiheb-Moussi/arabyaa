@@ -53,7 +53,7 @@ main {
                             <article class="propertyRow">
                                 <div class="info">
                                     <div class="imgProfile" style="border-radius: 50%">
-                                        <a href=""><img src="https://via.placeholder.com/100x100" alt="photo" width="100" height="100"></a>
+                                        <a href="{{ path('user_detail',{id: user.id}) }}"><img src="{{ vich_uploader_asset(user) }}" alt="photo" width="100" height="100"></a>
                                     </div>
                                     <div class="textBox">
                                         <h4 class="fontNeuron"><a href="properties-single1.html">{{ user.username }}</a></h4>
@@ -74,7 +74,7 @@ main {
                                     {% endif %}
                                     <span class="status fontNeuron {{ bgColor }}">{{ user.status }}</span>
                                     <ul class="links list-unstyled">
-                                        <li><a href="#"><i class="fa fa-eye"></i>Voir</a></li>
+                                        <li><a href="{{ path('user_detail',{id: user.id}) }}"><i class="fa fa-eye"></i>Voir</a></li>
                                         {% if user.userType != 'Super Admin'%}
                                             <li><a href="{{ path('deleteUser', {id: user.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li>
                                         {% endif %}

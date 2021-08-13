@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,6 +37,16 @@ class ProfileController extends AbstractController
         return $this->render('profile/actualites.html.twig', [
             'posts' => $posts,
             'selected_menu' => $selected_menu
+        ]);
+    }
+
+    /**
+     * @Route("/user_detail/{id}", name="user_detail")
+     */
+    public function user_detail(User $user, Request $request): Response
+    {
+        return $this->render('profile/user_detail.html.twig',[
+            'user'=>$user
         ]);
     }
 }
