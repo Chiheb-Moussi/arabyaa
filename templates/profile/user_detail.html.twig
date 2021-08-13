@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+    
+    <!-- content -->
+    <section id="content" class="container pabIndent" style="padding-top:50px">
+        <!-- contentFiltersHeadingWrap -->
+        <header class="contentFiltersHeadingWrap row">
+            <div class="col-xs-12 col-sm-10">
+                
+                <h1 class="fontNeuron">Détails de {{ user.username }}</h1>
+            </div>
+            
+        </header>
+        <!-- userProfile -->
+        <div class="userProfile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <!-- accountData -->
+                    <div class="accountData style2">
+                        <div class="accountHolder">
+                            <div class="imgProfile">
+                                <div class="imgThumbnail">
+                                    <img src="{{ vich_uploader_asset(user) }}" alt="{{ user.username }}">
+                                </div>
+                            </div>
+                            <div class="accountContent">
+                            <span class="btn bgColorPrimaryDark text-capitalize" style="float:right;color:#fff">{{ user.status }}</span>
+                            <strong class="title fontNeuron">{{ user.username }}</strong>
+                            
+                            <span class="sub-title"><i class="fi flaticon-pin"></i> {{ user.fullAddress }}</span>
+                            <p>{{ user.description }}</p>
+                            <div class="contactInfo">
+                                <address class="adr">
+                                    <div class="item">
+                                        <i class="fi flaticon-24-hours"></i>
+                                        <span class="text"><a href="#">{{ user.tel }}</a></span>
+                                    </div>
+                                    <div class="item">
+                                        <i class="fi flaticon-mail"></i>
+                                        <span class="text"><a href="#">{{ user.email }}</a></span>
+                                    </div>
+                                </address>
+                            </div>
+                            <ul class="list-unstyled socialNetworks profileColumnSocial">
+                                <li><a href="#" tabindex="0"><i class="fab fa-facebook-f"></i></a></li>
+                                
+                            </ul>
+                            {% if is_granted('ROLE_SUPER_ADMIN') and user.status != "Approuvé" %}
+                                <a href="{{ path('update_user_status',{id: user.id}) }}?status=Approuvé" class="btn btnSmall btn-success text-capitalize">Approuver</a>
+                                <a href="{{ path('update_user_status',{id: user.id}) }}?status=Refusé" class="btn btnSmall btn-danger text-capitalize">Refuser</a>
+                            {% endif %}
+                            
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}
+
