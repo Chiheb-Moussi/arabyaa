@@ -14,13 +14,13 @@ class DiplomeFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('diplomeFile')
             ->add('diplomeFile', VichFileType::class , [
                 'required' => false,
                 'allow_delete' => false,
                 'delete_label' => 'Supprimer',
                 'asset_helper' => true,
-                'label' => 'Diplôme'
+                'label' => false
+        
             ]);
         ;
     }

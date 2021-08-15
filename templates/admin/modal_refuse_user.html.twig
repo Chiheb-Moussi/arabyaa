@@ -1,0 +1,35 @@
+{% block modal %}
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			&times;
+		</button>
+		<h4 class="modal-title" id="myModalLabel"> Refuser un utilisateur</h4>
+	</div>
+	<div class="modal-body">
+        <form method="post" action="{{ path('refuse_user',{id: user.id}) }}">
+            <fieldset>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <label for="message_refus" class="control-label">Justifier le refus</label>
+                            <textarea class="form-control" name="message_refus" id="message_refus"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Annuler
+                </button>
+                <button id ="valider" type="submit" class="btn btn-primary" >
+                    Valider
+                </button>
+            </div>
+        </form>
+	</div>
+
+
+{% endblock %}
+

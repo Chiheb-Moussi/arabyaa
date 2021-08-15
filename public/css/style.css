@@ -12227,7 +12227,7 @@ h6 a:active, .h6 a:hover, .h6 a:focus, .h6 a:active {
 /* icnInput styles */
 .icnInput {
   position: absolute;
-  top: 50%;
+  top: 58%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -15337,29 +15337,29 @@ h6 a:active, .h6 a:hover, .h6 a:focus, .h6 a:active {
 }
 
 .contactFormPage .has-error .form-control {
-  color: red;
-  border-color: red;
+  color: #da7171;
+  border-color: #da7171;
 }
 
 .contactFormPage .has-error .form-control::-webkit-input-placeholder {
-  color: red;
+  color: #da7171;
 }
 
 .contactFormPage .has-error .form-control::-moz-placeholder {
   opacity: 1;
-  color: red;
+  color: #da7171;
 }
 
 .contactFormPage .has-error .form-control:-moz-placeholder {
-  color: red;
+  color: #da7171;
 }
 
 .contactFormPage .has-error .form-control:-ms-input-placeholder {
-  color: red;
+  color: #da7171;
 }
 
 .contactFormPage .has-error .form-control.placeholder {
-  color: red;
+  color: #da7171;
 }
 
 .contactFormPage .form-message {
@@ -18009,11 +18009,22 @@ section#map-with-listing {
 }
 
 .has-error {
-  border-color: red;
+  border-color: #da7171;
+  color: #da7171;
 }
+
+.form-control.has-error ul{
+  display:none;
+}
+
+
 
 .colorPrimary {
   color: var(--primary-color);
+}
+
+.colorRed {
+  color: #da7171;
 }
 .logo a:hover, .logo a:focus {
   color: var(--primary-color);
@@ -18072,4 +18083,72 @@ section#map-with-listing {
   cursor:pointer;
 }
 
+.fade.show {
+  opacity: 1;
+}
 
+.alert-warning {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-dismissible {
+  padding-right: 4rem;
+}
+
+.alert {
+  position: relative;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.close:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .75rem 1.25rem;
+    color: inherit;
+}
+
+
+
+.close:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .75rem 1.25rem;
+    color: inherit;
+    font-size: 24px;
+}
+button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+
+.form-group ul {
+  list-style: none;
+  padding:0;
+}

@@ -64,4 +64,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+
+    public function getAdminEmails()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.email')
+            ->where('u.userType = :adminType')
+            ->setParameter('adminType', User::USER_TYPE_SUPER_ADMIN)
+            ->getQuery()
+            ->getResult();
+    }
 }

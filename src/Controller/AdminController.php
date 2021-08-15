@@ -73,20 +73,46 @@ class AdminController extends AbstractController
 
     /**
      * @IsGranted("ROLE_SUPER_ADMIN")
-     * @Route("/update/user_status/{id}", name="update_user_status")
+     * @Route("/update/approve_user/{id}", name="approve_user")
      */
-    public function updateUserStatus(User $user, Request $request):Response
+    public function approve_user(User $user, Request $request):Response
     {
-        $status = $request->query->get('status','');
-        if($status)
-        {
-            $user->setStatus($status);
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+        
+        $user->setStatus(User::STATUS_APPROUVE);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
             
-        }
 
-        $referer = $request->headers->get('referer');
-        return $this->redirect($referer);
+        
+        return $this->redirectToRoute('user_detail', ['id',$user->getId()]);
+    }
+
+    /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
+     * @Route("/modal_refuse_user/{id}", name="modal_refuse_user")
+     */
+    public function modal_refuse_user(User $user,Request $request):Response
+    {
+        return $this->render('admin/modal_refuse_user.html.twig', [
+            'user'=> $user
+        ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
+     * @Route("/update/refuse_user/{id}", name="refuse_user", methods={"POST"})
+     */
+    public function refuse_user(User $user, Request $request):Response
+    {
+        dd($request);
+        $message_refus= $request->request->get('message_refus','');
+        $user->setMessageRefus($message_refus);
+        $user->setStatus(User::STATUS_REFUSE);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+            
+
+        
+        return $this->redirectToRoute('user_detail', ['id',$user->getId()]);
     }
 }

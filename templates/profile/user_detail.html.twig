@@ -48,8 +48,8 @@
                                 
                             </ul>
                             {% if is_granted('ROLE_SUPER_ADMIN') and user.status != "Approuvé" %}
-                                <a href="{{ path('update_user_status',{id: user.id}) }}?status=Approuvé" class="btn btnSmall btn-success text-capitalize">Approuver</a>
-                                <a href="{{ path('update_user_status',{id: user.id}) }}?status=Refusé" class="btn btnSmall btn-danger text-capitalize">Refuser</a>
+                                <a href="{{ path('approve_user',{id: user.id}) }}?status=Approuvé" class="btn btnSmall btn-success text-capitalize">Approuver</a>
+                                <a href="{{ path('modal_refuse_user',{id: user.id}) }}" class="btn btnSmall btn-danger text-capitalize" data-toggle="modal" data-target="#myModal">Refuser</a>
                             {% endif %}
                             
                             </div>

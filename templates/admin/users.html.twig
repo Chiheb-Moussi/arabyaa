@@ -76,7 +76,10 @@ main {
                                     <ul class="links list-unstyled">
                                         <li><a href="{{ path('user_detail',{id: user.id}) }}"><i class="fa fa-eye"></i>Voir</a></li>
                                         {% if user.userType != 'Super Admin'%}
-                                            <li><a href="{{ path('deleteUser', {id: user.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li>
+                                            {% if app.user != user %}
+                                                <li><a href="{{ path('deleteUser', {id: user.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li>
+                                            {% endif %}
+                                            
                                         {% endif %}
                                     </ul>
                                 </div>
