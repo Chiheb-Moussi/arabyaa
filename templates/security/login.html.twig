@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             {% if error %}
-                                <div class="alert alert-danger" style="color: red">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                <div class="alert alert-danger" >{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -39,6 +39,7 @@
                             </button>
                         </div>
                     </div>
+                    <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
                 </div>
             </div>
 

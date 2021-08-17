@@ -1,0 +1,45 @@
+<div class="col-xs-12 col-sm-4 col-lg-3">
+    <!-- profileSidebar -->
+    <aside class="profileSidebar">
+        <header class="head">
+            <div class="imgProfile">
+                <img src="{{ vich_uploader_asset(app.user) }}" alt="" width="74" height="74">
+            </div>
+            <div class="info">
+                <span class="text">{{ app.user.username }}</span>
+            </div>
+        </header>
+        <ul class="navUser list-unstyled">
+            <li {% if left_menu=='user_profile' %} class="active" {% endif %}>
+                <a href="{{ path('user_profile') }}">
+                    <i class="far fa-user"></i>
+                    <span>Paramètres du compte</span>
+                </a>
+            </li>
+            <li {% if left_menu=='user_actualites' %} class="active" {% endif %}>
+                <a href="{{ path('user_actualites')}}">
+                    <i class="fi flaticon-house"></i>
+                    <span>Mes actualités</span>
+                </a>
+            </li>
+            <li {% if left_menu=='user_favoris' %} class="active" {% endif %}>
+                <a href="#">
+                    <i class="far fa-heart"></i>
+                    <span>Mes favoris</span>
+                </a>
+            </li>
+            <li {% if left_menu=='post_new' %} class="active" {% endif %}>
+                <a href="{{ path('post_new') }}">
+                    <i class="fa fa-plus"></i>
+                    <span>Ajouter actualité</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('app_logout') }}">
+                    <i class="fa fa-sign-out-alt"></i>
+                    <span>Se déconnecter</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+</div>

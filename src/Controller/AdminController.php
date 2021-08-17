@@ -3,12 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Event\UserDeletedEvent;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Uid\Uuid;
+
 /**
  * @Route("/admin")
  */
@@ -61,8 +68,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/delete/user/{id}", name="deleteUser")
      */
-    public function deleteUser(User $user, Request $request)
+    public function deleteUser(User $user, Request $request, EventDispatcherInterface $eventDispatcher)
     {
+        $eventDispatcher->dispatch(new UserDeletedEvent($user));
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
@@ -75,16 +83,23 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/update/approve_user/{id}", name="approve_user")
      */
-    public function approve_user(User $user, Request $request):Response
+    public function approve_user(User $user, MailerInterface $mailer):Response
     {
         
         $user->setStatus(User::STATUS_APPROUVE);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
-            
 
         
-        return $this->redirectToRoute('user_detail', ['id',$user->getId()]);
+        //send email
+        $email = (new TemplatedEmail())
+                ->to($user->getEmail())
+                ->subject('Inscription Approuvé')
+                ->htmlTemplate('emails/approve_user.html.twig');
+        $mailer->send($email);
+
+        
+        return $this->redirectToRoute('user_detail', ['id'=>$user->getId()]);
     }
 
     /**
@@ -102,17 +117,24 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/update/refuse_user/{id}", name="refuse_user", methods={"POST"})
      */
-    public function refuse_user(User $user, Request $request):Response
+    public function refuse_user(User $user, Request $request, MailerInterface $mailer):Response
     {
-        dd($request);
         $message_refus= $request->request->get('message_refus','');
         $user->setMessageRefus($message_refus);
         $user->setStatus(User::STATUS_REFUSE);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
             
-
+        //send email
+        $email = (new TemplatedEmail())
+                ->to($user->getEmail())
+                ->subject('Inscription Refusé')
+                ->htmlTemplate('emails/refuse_user.html.twig')
+                ->context([
+                    'message_refus' => $message_refus
+                ]);
+        $mailer->send($email);
         
-        return $this->redirectToRoute('user_detail', ['id',$user->getId()]);
+        return $this->redirectToRoute('user_detail', ['id'=>$user->getId()]);
     }
 }

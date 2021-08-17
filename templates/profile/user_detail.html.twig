@@ -26,7 +26,17 @@
                                 </div>
                             </div>
                             <div class="accountContent">
-                            <span class="btn bgColorPrimaryDark text-capitalize" style="float:right;color:#fff">{{ user.status }}</span>
+                            {% if  is_granted('ROLE_SUPER_ADMIN') %}
+                                {% set bgColor = '' %}
+                                {% if user.status == 'En attente'%}
+                                    {% set bgColor = 'bgColorGold' %}
+                                {% elseif user.status == 'Refusé'%}
+                                    {% set bgColor = 'bgColorRed' %}
+                                {% else %}
+                                    {% set bgColor = 'bgColorPrimaryDark' %}
+                                {% endif %}
+                                <span class="btn {{ bgColor }} text-capitalize" style="float:right;color:#fff">{{ user.status }}</span>
+                            {% endif %}
                             <strong class="title fontNeuron">{{ user.username }}</strong>
                             
                             <span class="sub-title"><i class="fi flaticon-pin"></i> {{ user.fullAddress }}</span>
@@ -47,8 +57,8 @@
                                 <li><a href="#" tabindex="0"><i class="fab fa-facebook-f"></i></a></li>
                                 
                             </ul>
-                            {% if is_granted('ROLE_SUPER_ADMIN') and user.status != "Approuvé" %}
-                                <a href="{{ path('approve_user',{id: user.id}) }}?status=Approuvé" class="btn btnSmall btn-success text-capitalize">Approuver</a>
+                            {% if is_granted('ROLE_SUPER_ADMIN') and user.status == "En attente" %}
+                                <a href="{{ path('approve_user',{id: user.id}) }}" class="btn btnSmall btn-success text-capitalize">Approuver</a>
                                 <a href="{{ path('modal_refuse_user',{id: user.id}) }}" class="btn btnSmall btn-danger text-capitalize" data-toggle="modal" data-target="#myModal">Refuser</a>
                             {% endif %}
                             

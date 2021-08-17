@@ -19,249 +19,318 @@ main {
                 <h1 class="fontNeuron">Profile</h1>
             </div>
         </header>
+        
         <!-- userProfile -->
         <div class="userProfile">
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-lg-3">
-            <!-- profileSidebar -->
-            <aside class="profileSidebar">
-                <header class="head">
-                <div class="imgProfile">
-                    <img src="{{ vich_uploader_asset(user) }}" alt="" width="74" height="74">
-                </div>
-                <div class="info">
-                    <span class="text">{{ app.user.nom ~' '~ app.user.prenom}}</span>
-                </div>
-                </header>
-                <ul class="navUser list-unstyled">
-                <li class="active">
-                    <a href="{{ path('user_profile') }}">
-                    <i class="far fa-user"></i>
-                    <span>Paramètres du compte</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('actualites')}}">
-                    <i class="fi flaticon-house"></i>
-                    <span>Mes actualités</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="far fa-heart"></i>
-                    <span>Mes favoris</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('post_new') }}">
-                    <i class="fa fa-plus"></i>
-                    <span>Ajouter actualité</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="fa fa-sign-out-alt"></i>
-                    <span>Se déconnecter</span>
-                    </a>
-                </li>
-                </ul>
-            </aside>
-            </div>
+            {% include "profile/_left_menu.html.twig" %}
             <div class="col-xs-12 col-sm-8 col-lg-9">
+
+            {% include "includes/alert.html.twig" %}
+            {% for error in errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error.message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
             <!-- accountData -->
             <div class="accountData">
-                <form>
-                <div class="head">
-                    <h4 class="fontNeuron">Paramètres du compte</h4>
-                </div>
-                <div class="accountHolder">
-                    
-                    <div class="accountContent">
-                    <div class="row">
-                    <div class="form-group col-xs-6">
-                        <label for="itemN-1">Nom</label>
-                        <input type="text" class="form-control" value="{{ user.nom  }}" id="itemN-1">
+                <form name="user_parameters" method="post">
+                    <div class="head">
+                        <h4 class="fontNeuron">Paramètres du compte</h4>
                     </div>
-                    <div class="form-group col-xs-6">
-                        <label for="itemN-2">Prénom</label>
-                        <input type="text" class="form-control" value="{{ user.prenom  }}" id="itemN-2">
+                    <div class="accountHolder">
+                        <div class="accountContent">
+                        
+                            <div class="row">
+                                {% if user.userType =="Partenariat" %}
+                                    <div class="form-group col-xs-12">
+                                        <label for="user_parameters_ministere">Nom du Ministère</label>
+                                        <input 
+                                            type="text" 
+                                            name="user_parameters[ministere]" 
+                                            id="user_parameters_ministere" 
+                                            class="form-control is-required" 
+                                            value="{{ user.ministere  }}" 
+                                            data-submit="save_user_parameters"
+                                        />
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-xs-6">
+                                        <label for="user_parameters_nom">Nom</label>
+                                        <input 
+                                            type="text" 
+                                            name="user_parameters[nom]" 
+                                            id="user_parameters_nom" 
+                                            class="form-control is-required" 
+                                            value="{{ user.nom  }}" 
+                                            data-submit="save_user_parameters"
+                                        />
+                                    </div>
+                                    <div class="form-group col-xs-6">
+                                        <label for="user_parameters_prenom">Prénom</label>
+                                        <input 
+                                            type="text" 
+                                            name="user_parameters[prenom]" 
+                                            id="user_parameters_prenom" 
+                                            class="form-control is-required" 
+                                            value="{{ user.prenom  }}" 
+                                            data-submit="save_user_parameters"
+                                        />
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="form-group  col-xs-12">
+                                    <label for="user_parameters_email">Email</label>
+                                    <input 
+                                    type="email" 
+                                    name="user_parameters[email]" 
+                                    id="user_parameters_email" 
+                                    class="form-control is-required" 
+                                    value="{{ user.email  }}" 
+                                    data-submit="save_user_parameters"
+                                />
+                                </div>
+                            </div>
+                            <button type="submit" id="save_user_parameters" class="btn alighRight btnSecondary buttonL fontNeuron" disabled>Modifier</button>
+                        </div>
                     </div>
-                    <div class="form-group  col-xs-12">
-                        <label for="itemN-3">Email</label>
-                        <input type="email" class="form-control" value="{{ user.email  }}" id="itemN-3">
-                    </div>
-                    </div>
-                        <button type="submit" class="btn alighRight btnSecondary buttonL fontNeuron">Modifier</button>
-                    </div>
-                </div>
                 </form>
             </div>
+
             <!-- accountData -->
             <div class="accountData">
-                <form>
-                <div class="head">
-                    <h4 class="fontNeuron">Changer mot de passe</h4>
-                </div>
-                <div class="accountHolder">
-                    <div class="accountContent">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                        <div class="form-group">
-                            <label for="itemN-5">Mot de passe actuelle</label>
-                            <input type="password" class="form-control"  id="itemN-5">
-                        </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                        <div class="form-group">
-                            <label for="itemN-6">Nouveau mot de passe</label>
-                            <input type="password" class="form-control"  id="itemN-6">
-                        </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                        <div class="form-group">
-                            <label for="itemN-7">Confirmer nouveau Mot de passe</label>
-                            <input type="password" class="form-control"  id="itemN-7">
-                        </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn alighRight btnSecondary buttonL fontNeuron">Changer mot de passe</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-            <!-- accountData -->
-            <div class="accountData">
-                <form>
+                <form name="user_informations" method="post" >
                 <div class="head">
                     <h4 class="fontNeuron">Information complémentaires</h4>
                 </div>
                 <div class="accountHolder">
                     
                     <div class="accountContent">
+                    {% if user.userType != "Partenariat" %}
+                        <div class="row">
+                            <div class="form-group col-xs-6">
+                                <label for="user_informations_dateNaissance">Date de naissance</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control datepicker is-required" 
+                                    value="{{ user.dateNaissance|date("Y-m-d")  }}" 
+                                    name="user_informations[dateNaissance]"
+                                    id="user_informations_dateNaissance"
+                                    data-submit="save_user_informations"
+                                />
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="itemN-1">Date de naissance</label>
-                            <input type="date" class="form-control" value="{{ user.dateNaissance|date("Y-m-d")  }}" id="itemN-1">
+                            <label for="user_informations_tel">Téléphone</label>
+                            <input 
+                                type="text" 
+                                class="form-control is-required" 
+                                value="{{ user.tel }}" 
+                                name="user_informations[tel]"
+                                id="user_informations_tel"
+                                data-submit="save_user_informations"
+                            />
                         </div>
+                        {% if user.userType != "Partenariat" %}
+                            <div class="form-group  col-xs-6">
+                                <label for="user_informations_whatsapp">Whatsapp</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control is-required" 
+                                    value="{{ user.whatsapp  }}" 
+                                    name="user_informations[whatsapp]"
+                                    id="user_informations_whatsapp"
+                                    data-submit="save_user_informations"
+                                />
+                            </div>
+                        {% endif %}
+                        
+                        {% if user.userType == "Etudiant" %}
+                            <div class="form-group col-xs-6">
+                                <label for="user_informations_ecole">Nom de l´école /College /Lycée</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    value="{{ user.ecole }}" 
+                                    name="user_informations[ecole]"
+                                    id="user_informations_ecole"
+                                    data-submit="save_user_informations"
+                                />
+                            </div>
+                            <div class="form-group  col-xs-6">
+                                <label for="user_informations_classe">Classe</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    value="{{ user.classe  }}" 
+                                    name="user_informations[classe]"
+                                    id="user_informations_classe"
+                                    data-submit="save_user_informations"
+                                />
+                            </div>
+                        {% endif %}
+                        {% if user.userType != "Partenariat" %}
+                            <div class="form-group col-xs-6">
+                                <label for="user_informations_iban">IBAN</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control is-required" 
+                                    value="{{ user.iban }}" 
+                                    name="user_informations[iban]"
+                                    id="user_informations_iban"
+                                    data-submit="save_user_informations"
+                                />
+                            </div>
+                            <div class="form-group  col-xs-6">
+                                <label for="user_informations_bic">BIC</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control is-required" 
+                                    value="{{ user.bic }}" 
+                                    name="user_informations[bic]"
+                                    id="user_informations_bic"
+                                    data-submit="save_user_informations"
+                                />
+                            </div>
+                            <div class="form-group  col-xs-12">
+                                <label for="user_informations_fbLink">Lien Page Facebook</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    value="{{ user.fbLink }}" 
+                                    name="user_informations[fbLink]"
+                                    id="user_informations_fbLink"
+                                />
+                            </div>
+                        {% else %}
+                            <div class="form-group  col-xs-12">
+                                <label for="user_informations_fbLink">Lien Page Facebook</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    value="{{ user.fbLink }}" 
+                                    name="user_informations[fbLink]"
+                                    id="user_informations_fbLink"
+                                />
+                            </div>
+                            <div class="form-group  col-xs-12">
+                                <label for="user_informations_webLink">Lien Page Web</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    value="{{ user.webLink }}" 
+                                    name="user_informations[webLink]"
+                                    id="user_informations_webLink"
+                                />
+                            </div>
+                        {% endif %}
                     </div>
-                    <div class="row">
-                        <div class="form-group col-xs-6">
-                            <label for="itemN-2">Téléphone</label>
-                            <input type="text" class="form-control" value="{{ user.tel }}" id="itemN-2">
-                        </div>
-                        <div class="form-group  col-xs-6">
-                            <label for="itemN-3">Whatsapp</label>
-                            <input type="text" class="form-control" value="{{ user.email  }}" id="itemN-3">
-                        </div>
-
-                        <div class="form-group col-xs-6">
-                            <label for="itemN-2">Nom de l´école /College /Lycée</label>
-                            <input type="text" class="form-control" value="{{ user.ecole }}" id="itemN-2">
-                        </div>
-                        <div class="form-group  col-xs-6">
-                            <label for="itemN-3">Classe</label>
-                            <input type="text" class="form-control" value="{{ user.classe  }}" id="itemN-3">
-                        </div>
-
-                        <div class="form-group col-xs-6">
-                            <label for="itemN-2">IBAN</label>
-                            <input type="text" class="form-control" value="{{ user.iban }}" id="itemN-2">
-                        </div>
-                        <div class="form-group  col-xs-6">
-                            <label for="itemN-3">BIC</label>
-                            <input type="text" class="form-control" value="{{ user.bic  }}" id="itemN-3">
-                        </div>
-                        <div class="form-group  col-xs-12">
-                            <label for="itemN-3">Lien Page Facebook</label>
-                            <input type="text" class="form-control" value="{{ user.fbLink  }}" id="itemN-3">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn alighRight btnSecondary buttonL fontNeuron">Modifier</button>
+                    <button type="submit" id="save_user_informations" class="btn alighRight btnSecondary buttonL fontNeuron">Modifier</button>
                     </div>
                 </div>
                 </form>
             </div>
             <!-- accountData -->
             <div class="accountData">
-                <form>
-                <div class="head">
-                    <h4 class="fontNeuron">Adresse</h4>
-                </div>
+                <form name="user_addresse" method="post">
+                    <div class="head">
+                        <h4 class="fontNeuron">Adresse</h4>
+                    </div>
                 <div class="accountHolder">
                     
                     <div class="accountContent">
-                    <div class="row">
-                        <div class="form-group col-xs-6">
-                            <label for="itemN-1">Pays</label>
-                            <input type="text" class="form-control" value="{{ user.pays }}" id="itemN-1">
+                        <div class="row">
+                            <div class="form-group col-xs-6">
+                                <label for="user_addresse_pays">Pays</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control is-required" 
+                                    value="{{ user.pays }}" 
+                                    name="user_addresse[pays]"
+                                    id="user_addresse_pays"
+                                    data-submit="save_user_addresse"
+                                />
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="user_addresse_ville">Ville</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control is-required" 
+                                    value="{{ user.ville }}" 
+                                    name="user_addresse[ville]"
+                                    id="user_addresse_ville"
+                                    data-submit="save_user_addresse"
+                                />
+                            </div>
+                        
+                            <div class="form-group col-xs-6">
+                                <label for="user_addresse_gouvernerat">Gouvernerat</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control is-required" 
+                                    value="{{ user.gouvernerat }}" 
+                                    name="user_addresse[gouvernerat]"
+                                    id="user_addresse_gouvernerat"
+                                    data-submit="save_user_addresse"
+                                />
+                            </div>
+                            <div class="form-group  col-xs-6">
+                                <label for="user_addresse_codePostal">Code Postal</label>
+                                <input 
+                                    type="number" 
+                                    class="form-control is-required" 
+                                    value="{{ user.codePostal }}" 
+                                    name="user_addresse[codePostal]"
+                                    id="user_addresse_codePostal"
+                                    data-submit="save_user_addresse"
+                                />
+                            </div>
+                            <div class="form-group  col-xs-12">
+                                <label for="user_addresse_adresse">Adresse</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control is-required" 
+                                    value="{{ user.adresse }}" 
+                                    name="user_addresse[adresse]"
+                                    id="user_addresse_adresse"
+                                    data-submit="save_user_addresse"
+                                />
+                            </div>
                         </div>
-                        <div class="form-group col-xs-6">
-                            <label for="itemN-1">Ville</label>
-                            <input type="text" class="form-control" value="{{ user.ville }}" id="itemN-1">
-                        </div>
-                    
-                        <div class="form-group col-xs-6">
-                            <label for="itemN-2">Gouvernerat</label>
-                            <input type="text" class="form-control" value="{{ user.gouvernerat }}" id="itemN-2">
-                        </div>
-                        <div class="form-group  col-xs-6">
-                            <label for="itemN-3">Code Postal</label>
-                            <input type="text" class="form-control" value="{{ user.codePostal  }}" id="itemN-3">
-                        </div>
-                        <div class="form-group  col-xs-12">
-                            <label for="itemN-3">Adresse</label>
-                            <input type="text" class="form-control" value="{{ user.fbLink  }}" id="itemN-3">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn alighRight btnSecondary buttonL fontNeuron">Modifier</button>
+                    <button type="submit" id="save_user_addresse" class="btn alighRight btnSecondary buttonL fontNeuron">Modifier</button>
                     </div>
                 </div>
                 </form>
             </div>
-            <!-- accountData -->
-            <div class="accountData">
-                <form>
-                <div class="head">
-                    <h4 class="fontNeuron">Photo & Documents</h4>
-                </div>
-                <div class="accountHolder">
-                    <div class="accountContent">
-                    
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                        <div class="form-group">
-                            <label for="itemN-10">Photo</label>
-                            <input type="file" class="form-control"  id="itemN-10">
-                        </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-xs-6 col-md-6">
-                        <div class="form-group">
-                            <label for="itemN-10">Carte d'identité Nationale</label>
-                            <input type="file" class="form-control"  id="itemN-10">
-                        </div>
-                        </div>
-
-                        <div class="col-xs-6 col-md-6">
-                        <div class="form-group">
-                            <label for="itemN-10">Passport</label>
-                            <input type="file" class="form-control"  id="itemN-10">
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn alighRight btnSecondary buttonL fontNeuron">Modifier</button>
-                    </div>
-                </div>
-                </form>
-            </div>
             </div>
         </div>
         </div>
     </section>
     
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}"></script>
+<script src="{{ asset('js/date.js') }}"></script>
+<script>
+$(document).ready(function(){
+    $('.is-required').on('change', function(){
+        var save_btn  = $(this).data('submit');
+        if($(this).val()) {
+            $(this).removeClass('has-error');
+            $('#'+save_btn).prop( "disabled", false );
+        }else {
+            $(this).addClass('has-error');
+            $('#'+save_btn).prop( "disabled", true );
+        }
+    });
+});
+</script>
 {% endblock %}

@@ -77,6 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @Assert\NotBlank(
      *      message= "L'email est obligatoire !"
+     *      
      * )
      * @Assert\Email(
      *     message = "L'email {{ value }} n'est pas valide !"
@@ -191,7 +192,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Assert\Url(
-     *    message = "Le lien Facebook {{ value }} n'est pas valide !",
+     *    message = "Le lien Facebook {{ value }} n'est pas valide !"
      * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -240,7 +241,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Assert\Url(
-     *    message = "Le lien {{ value }} n'est pas valide !",
+     *    message = "Le lien {{ value }} n'est pas valide !"
      * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -266,8 +267,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Assert\Image(
-     *      maxSize = "1024k",
-     *      maxSizeMessage = "La taille de photo ne doit pas dépasser 1M !",
+     *      maxSize = "2M",
+     *      maxSizeMessage = "La taille de photo ne doit pas dépasser 2M !",
      *      mimeTypes = {"image/png", "image/jpeg"},
      *      mimeTypesMessage= "la photo doit être de type PNG ou JPEG ou JPG !"
      * )
@@ -402,6 +403,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="text", nullable=true)
      */
     private $message_refus;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $oldEmail;
 
     
 
@@ -1084,6 +1090,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMessageRefus(?string $message_refus): self
     {
         $this->message_refus = $message_refus;
+
+        return $this;
+    }
+
+    public function getOldEmail(): ?string
+    {
+        return $this->oldEmail;
+    }
+
+    public function setOldEmail(?string $oldEmail): self
+    {
+        $this->oldEmail = $oldEmail;
 
         return $this;
     }

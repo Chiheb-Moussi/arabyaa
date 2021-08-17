@@ -101,33 +101,33 @@
                             {% if app.user %}
                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                                     <li>
-                                        <a href="/admin" >
+                                        <a href="{{ path('dashboard') }}" >
                                             <i class="fi flaticon-squares icn"></i>
                                             <strong class="text fwNormal hidden-xs hidden-sm">Espace admin</strong>
                                         </a>
                                     </li>
                                 {% endif %}
                             <li>
-                                <a href="/profile" >
+                                <a href="{{ path('user_profile') }}" >
                                     <i class="fi flaticon-social icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">Mon profile</strong>
                                 </a>
                             </li>
                             <li>
-                                <a href="/logout" >
+                                <a href="{{ path('app_logout') }}" >
                                     <i class="fi flaticon-logout icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">Se déconnecter</strong>
                                 </a>
                             </li>
                             {% else %}
                             <li>
-                                <a href="/login" >
+                                <a href="{{ path('app_login') }}" >
                                     <i class="fi flaticon-social icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">Se connecter</strong>
                                 </a>
                             </li>
                             <li>
-                                <a href="/register" >
+                                <a href="{{ path('app_register') }}" >
                                     <i class="fi flaticon-edit icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">S'inscrire</strong>
                                 </a>

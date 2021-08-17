@@ -15337,7 +15337,7 @@ h6 a:active, .h6 a:hover, .h6 a:focus, .h6 a:active {
 }
 
 .contactFormPage .has-error .form-control {
-  color: #da7171;
+  color: #030303;
   border-color: #da7171;
 }
 
@@ -18151,4 +18151,20 @@ button.close {
 .form-group ul {
   list-style: none;
   padding:0;
+}
+
+.block404 .alert.alert-danger {
+  width: 60%;
+  margin: 20px auto;
+}
+
+.imgProfile img {
+  width: 150px;
+  height: 150px;
+}
+
+.btnLinkDelete {
+  border: none;
+  background: none;
+  color: #da7171;
 }
