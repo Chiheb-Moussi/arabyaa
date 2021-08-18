@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +42,7 @@ class ProfileController extends AbstractController
             $user_informations = $request->request->get('user_informations','');
             if($user_informations) {
                 $properties=['tel','whatsapp','iban','bic','fbLink','webLink'];
+                $user->setDescription($user_informations['description']);
                 $user->setDateNaissance(new \DateTime($user_informations['dateNaissance']));
                 $user->setTel($user_informations['tel']);
                 $user->setFbLink($user_informations['fbLink']);
@@ -92,18 +94,24 @@ class ProfileController extends AbstractController
     /**
      * @Route("/user_actualites", name="user_actualites")
      */
-    public function user_actualites(PaginatorInterface $paginator, Request $request): Response
+    public function user_actualites(PaginatorInterface $paginator, PostRepository $postRepository, Request $request): Response
     {
+        $type = $request->query->get('type', '');
         $page = $request->query->get('page', 1);
-        $posts_data = $this->getDoctrine()->getRepository(Post::class)->findBy(['user'=>$this->getUser()],['createdAt'=>'desc']);
-        $posts = $paginator->paginate($posts_data, $page, 6);
+        $posts_data = $postRepository->getPosts('',$type,'',0,$this->getUser());
+        $posts = $paginator->paginate($posts_data, $page, 5);
+
+        $selected_type = $type ? $type : Post::TYPE_ACTUALITE;
+        $not_selected_type = $selected_type==Post::TYPE_ACTUALITE ? Post::TYPE_PRESSE : Post::TYPE_ACTUALITE;
 
         $selected_menu = "post";
         $left_menu='user_actualites';
         return $this->render('profile/actualites.html.twig', [
             'posts' => $posts,
             'selected_menu' => $selected_menu,
-            'left_menu'=>$left_menu
+            'left_menu'=>$left_menu,
+            'selected_type'=>$selected_type,
+            'not_selected_type'=>$not_selected_type
         ]);
     }
 

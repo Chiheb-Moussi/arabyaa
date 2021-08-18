@@ -109,6 +109,16 @@ main {
                 <div class="accountHolder">
                     
                     <div class="accountContent">
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <label for="user_informations_description">Description</label>
+                                <textarea 
+                                    class="form-control" 
+                                    name="user_informations[description]"
+                                    id="user_informations_description"
+                                >{{ user.description }}</textarea>
+                            </div>
+                        </div>
                     {% if user.userType != "Partenariat" %}
                         <div class="row">
                             <div class="form-group col-xs-6">

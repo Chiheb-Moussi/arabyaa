@@ -1070,9 +1070,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getUsername();
     }
 
-    public function getDescription(): ?string
+    public function getDescription($length=0): ?string
     {
-        return $this->description;
+        $description= $this->description;
+        if($length) {
+            if(strlen($description)> $length) {
+                return substr($description,0,$length).'...';
+            }
+        }
+        return $description;
     }
 
     public function setDescription(?string $description): self

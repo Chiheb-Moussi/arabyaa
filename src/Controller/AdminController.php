@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Entity\User;
 use App\Event\UserDeletedEvent;
 use App\Repository\UserRepository;
@@ -15,6 +16,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Uid\Uuid;
+use App\Repository\PostRepository;
 
 /**
  * @Route("/admin")
@@ -24,13 +26,56 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="dashboard")
      */
-    public function dashboard(): Response
+    public function dashboard(UserRepository $userRepository, PostRepository $postRepository): Response
     {
         $user = $this->getUser();
+
+        $count_posts = $postRepository->getCountPosts();
+        $count_users = $userRepository->getCountUsers();
+        $count_new_users = $userRepository->getCountUsers(User::STATUS_EN_ATTENTE);
+
+        
+
+        $array_all_months=[
+            1   =>  "Janvier",
+            2   =>  "Février",
+            3   =>  "Mars",
+            4   =>  "Avril",
+            5   =>  "Mai",
+            6   =>  "Juin",
+            7   =>  "Juillet",
+            8   =>  "Août",
+            9   =>  "Septembre",
+            10  =>  "Octobre",
+            11  =>  "Novembre",
+            12  =>  "Décembre"
+        ];
+        
+        $month_number = date('m');
+        $array_past_months = array_slice($array_all_months, 0, $month_number);
+        //graph users
+        $users_data = [];
+        for ($i = 1; $i <= count($array_past_months); $i++) {
+            $users_data[] = $userRepository->getCountUsers('', $i);
+        }
+
+        //graph posts
+        $posts_data = [];
+        for ($i = 1; $i <= count($array_past_months); $i++) {
+            $posts_data[] = $postRepository->getCountPosts($i);
+        }
+
+        
         $left_menu= "dashboard";
         return $this->render('admin/dashboard.html.twig', [
             'left_menu'=>$left_menu,
-            'user'=>$user
+            'user'=>$user,
+            'count_posts'=>$count_posts,
+            'count_users'=>$count_users,
+            'count_new_users'=> $count_new_users,
+            'labels'=>$array_past_months,
+            'users_data'=>$users_data,
+            'posts_data'=>$posts_data
         ]);
     }
 
@@ -45,7 +90,7 @@ class AdminController extends AbstractController
         if($userType) $filters['userType']=$userType;
         
         $users_data = $this->getDoctrine()->getRepository(User::class)->findBy($filters,['createdAt'=>'desc']);
-        $users = $paginator->paginate($users_data, $page, 10);
+        $users = $paginator->paginate($users_data, $page, 5);
 
         $all_userTypes = User::getAvailableUserTypes(true);
         $selected_userType= $userType ? $userType : 'Tous les utilisateurs';
@@ -136,5 +181,35 @@ class AdminController extends AbstractController
         $mailer->send($email);
         
         return $this->redirectToRoute('user_detail', ['id'=>$user->getId()]);
+    }
+
+    /**
+     * @Route("/admin_actualites", name="admin_actualites")
+     */
+    public function admin_actualites(PaginatorInterface $paginator, PostRepository $postRepository, Request $request): Response
+    {
+        $type = $request->query->get('type', '');
+        $page = $request->query->get('page', 1);
+        $posts_data = $postRepository->getPosts('',$type);
+        $posts = $paginator->paginate($posts_data, $page, 5);
+
+
+        $selected_type = $type ? $type : Post::TYPE_ACTUALITE;
+        $not_selected_type = $selected_type==Post::TYPE_ACTUALITE ? Post::TYPE_PRESSE : Post::TYPE_ACTUALITE;
+        
+
+        
+
+       
+
+        $selected_menu = "post";
+        $left_menu='admin_actualites';
+        return $this->render('admin/actualites.html.twig', [
+            'posts' => $posts,
+            'selected_menu' => $selected_menu,
+            'left_menu'=>$left_menu,
+            'selected_type'=>$selected_type,
+            'not_selected_type'=>$not_selected_type
+        ]);
     }
 }

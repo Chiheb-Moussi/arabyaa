@@ -3,10 +3,15 @@
     <aside class="profileSidebar">
         <header class="head">
             <div class="imgProfile">
-                <img src="{{ vich_uploader_asset(app.user) }}" alt="" width="74" height="74">
+                <a href="{{ path('user_detail',{id: app.user.id}) }}">
+                    <img src="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.username }}" >
+                </a>
             </div>
+            
             <div class="info">
-                <span class="text">{{ app.user.username }}</span>
+                <a href="{{ path('user_detail',{id: app.user.id}) }}" style="color: inherit;">
+                    <span class="text">{{ app.user.username }}</span>
+                </a>
             </div>
         </header>
         <ul class="navUser list-unstyled">

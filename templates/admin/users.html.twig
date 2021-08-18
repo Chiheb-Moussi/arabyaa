@@ -56,7 +56,7 @@ main {
                                         <a href="{{ path('user_detail',{id: user.id}) }}"><img src="{{ vich_uploader_asset(user) }}" alt="photo" ></a>
                                     </div>
                                     <div class="textBox">
-                                        <h4 class="fontNeuron"><a href="properties-single1.html">{{ user.username }}</a></h4>
+                                        <h4 class="fontNeuron"><a href="{{ path('user_detail',{id: user.id}) }}">{{ user.username }}</a></h4>
                                         <address><i class="fi flaticon-pin-1"></i>{{ user.fullAddress }} </address>
                                         <div class="priceArea">
                                         <span class="price fontNeuron">{{ user.userType }}</span>

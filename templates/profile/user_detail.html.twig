@@ -2,7 +2,6 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block body %}
-    
     <!-- content -->
     <section id="content" class="container pabIndent" style="padding-top:50px">
         <!-- contentFiltersHeadingWrap -->
@@ -39,22 +38,10 @@
                             {% endif %}
                             <strong class="title fontNeuron">{{ user.username }}</strong>
                             
-                            <span class="sub-title"><i class="fi flaticon-pin"></i> {{ user.fullAddress }}</span>
                             <p>{{ user.description }}</p>
-                            <div class="contactInfo">
-                                <address class="adr">
-                                    <div class="item">
-                                        <i class="fi flaticon-24-hours"></i>
-                                        <span class="text"><a href="#">{{ user.tel }}</a></span>
-                                    </div>
-                                    <div class="item">
-                                        <i class="fi flaticon-mail"></i>
-                                        <span class="text"><a href="#">{{ user.email }}</a></span>
-                                    </div>
-                                </address>
-                            </div>
+                            
                             <ul class="list-unstyled socialNetworks profileColumnSocial">
-                                <li><a href="#" tabindex="0"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="{{ user.fbLink }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                                 
                             </ul>
                             {% if is_granted('ROLE_SUPER_ADMIN') and user.status == "En attente" %}
@@ -70,7 +57,102 @@
                 
             </div>
         </div>
+        {% if is_granted('ROLE_SUPER_ADMIN') or app.user == user %}
+        <div  class="accountData  " style="margin-top:30px">
+            <div class="head">
+                <h2 class="fontNeuron">Informations</h2>
+            </div>
+        
+            <div class="listpanel-content">
+                <ul>
+                {% if user.userType == 'Partenariat' %}
+                    <li><span>Ministère</span><span class="righttext"> {{ user.ministere }}</span></li>
+                {% else %}
+                    <li><span>Nom</span><span class="righttext"> {{ user.nom }}</span></li>
+                    <li><span>Prénom</span><span class="righttext"> {{ user.prenom }}</span></li>
+                {% endif %}
+                    <li><span>Email</span><span class="righttext"> {{ user.prenom }}</span></li>
+                    <li><span>Date de naissance</span><span class="righttext"> {{ user.dateNaissance|date('d/m/Y') }}</span></li>
+                    <li><span>Téléphone</span><span class="righttext"> {{ user.tel }}</span></li>
+                {% if user.userType != 'Partenariat' %}
+                    <li><span>Whatsapp</span><span class="righttext"> {{ user.whatsapp }}</span></li>
+                    {% if user.userType == 'Etudiant' %}    
+                        <li><span>Ecole/ College/ Lycéé</span><span class="righttext"> {{ user.ecole }}</span></li>
+                        <li><span>Classe</span><span class="righttext"> {{ user.classe }}</span></li>
+                    {% endif %}
+                    <li><span>IBAN</span><span class="righttext"> {{ user.iban }}</span></li>
+                    <li><span>BIC</span><span class="righttext"> {{ user.bic }}</span></li>
+                    <li><span>Lien Page Facebook</span><span class="righttext"> {{ user.fbLink }}</span></li>
+                {% else %}
+                    <li><span>Lien Page Facebook</span><span class="righttext"> {{ user.fbLink }}</span></li>
+                    <li><span>Lien Page Web</span><span class="righttext"> {{ user.webLink }}</span></li>
+                {% endif %}
+
+                </ul>
+                <ul>
+                    <li><span>Pays</span><span class="righttext"> {{ user.pays }}</span></li>
+                    <li><span>Ville</span><span class="righttext"> {{ user.ville }}</span></li>
+                    <li><span>Gouvernerat</span><span class="righttext"> {{ user.gouvernerat }}</span></li>
+                    <li><span>Code postal</span><span class="righttext"> {{ user.codePostal }}</span></li>
+                    <li><span>Addresse</span><span class="righttext"> {{ user.adresse }}</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="accountData filesattachment">
+            <div class="head">
+                <h4 class="fontNeuron">Documents</h4>
+            </div>
+            <ul class="filesattachment-list">
+                {% if user.cin %}
+                    <li>
+                        <a href="{{ vich_uploader_asset(user, 'cinFile') }}" download>
+                        <i><img src="{{ asset('images/document.png') }}" alt="iamge description"></i>
+                        CIN / Passport
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.cv %}
+                    <li>
+                        <a href="{{ vich_uploader_asset(user, 'cvFile') }}" download>
+                        <i><img src="{{ asset('images/document.png') }}" alt="iamge description"></i>
+                        Curriculum Vitae
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.motivationLetter %}
+                    <li>
+                        <a href="{{ vich_uploader_asset(user, 'motivationLetterFile') }}" download>
+                        <i><img src="{{ asset('images/document.png') }}" alt="iamge description"></i>
+                        Lettre de Motivation
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.bulletin %}
+                    <li>
+                        <a href="{{ vich_uploader_asset(user, 'bulletinFile') }}" download>
+                        <i><img src="{{ asset('images/document.png') }}" alt="iamge description"></i>
+                        Bulltein Numéro 3
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if user.diplomes %}
+            <ul class="filesattachment-list" style="margin-top:30px">
+                {% for diplome in user.diplomes %}
+                    <li>
+                        <a href="{{ vich_uploader_asset(diplome, 'diplomeFile') }}" download>
+                            <i><img src="{{ asset('images/document.png') }}" alt="iamge description"></i>
+                            Diplôme
+                        </a>
+                    </li> 
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    {% endif %}
     </section>
+
+    
     
 {% endblock %}
 

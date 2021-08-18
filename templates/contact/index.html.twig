@@ -24,37 +24,40 @@ main {
         <!-- contactMain -->
         <div class="contactMain">
             <div class="row flexSameHeight">
+                
                 <div class="col-xs-12 col-sm-7 col-md-8">
+                    
                     <!-- contactFormPage -->
                     <div class="contactFormPage">
+                        {% include "includes/alert.html.twig" %}
                         <h4 class="fontNeuron">Envoyer nous un message</h4>
-                        <form>
+                        <form method="post">
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" id="txtname" placeholder="Nom et prénom" class="form-control" required data-error="NEW ERROR MESSAGE">
+                                        <input name="contact[name]" type="text" id="txtname" placeholder="Nom et prénom" class="form-control" required data-error="NEW ERROR MESSAGE">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
-                                        <input type="email" id="txtemail" placeholder="Email" class="form-control" required data-error="NEW ERROR MESSAGE">
+                                        <input name="contact[email]" type="email" id="txtemail" placeholder="Email" class="form-control" required data-error="NEW ERROR MESSAGE">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
-                                        <input type="tel" id="txttel" placeholder="Téléphone" class="form-control" required data-error="NEW ERROR MESSAGE">
+                                        <input name="contact[tel]" type="tel" id="txttel" placeholder="Téléphone" class="form-control" required data-error="NEW ERROR MESSAGE">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
-                                        <input type="url" id="txtwebsite" placeholder="Site web" class="form-control" required data-error="NEW ERROR MESSAGE">
+                                        <input name="contact[webLink]" type="url" id="txtwebsite" placeholder="Site web" class="form-control"  data-error="NEW ERROR MESSAGE">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" id="txtmessage" placeholder="Message" required data-error="NEW ERROR MESSAGE"></textarea>
+                                <textarea name="contact[message]" class="form-control" id="txtmessage" placeholder="Message" required data-error="NEW ERROR MESSAGE"></textarea>
                             </div>
                             <button type="submit" class="btn btnDark fontNeuron buttonXL" id="form-submit">Envoyer</button>
                         </form>
@@ -76,7 +79,7 @@ main {
                             </div>
                             <div class="item">
                                 <i class="fi flaticon-mail"></i>
-                                <span class="text"><a href="mailto:info@LemanHouse.com">info@arrabya.com</a></span>
+                                <span class="text"><a href="mailto:info@LemanHouse.com">info@araabya.com</a></span>
                             </div>
                         </address>
                         <ul class="socialNetworks list-unstyled">

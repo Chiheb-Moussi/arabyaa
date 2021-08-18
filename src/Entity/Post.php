@@ -37,7 +37,7 @@ class Post
     private $title;
 
     /**
-     * @Gedmo\Slug(fields={"title"}, updatable=false, separator="_")
+     * @Gedmo\Slug(fields={"title","createdAt"}, updatable=false, separator="_")
      * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
     private $slug;
