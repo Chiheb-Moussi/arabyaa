@@ -85,7 +85,7 @@
                         </p>
 
                         <p class="post_content">
-                            {{ post.content|length > 150 ? post.content|slice(0, 150) ~ '...' : post.content  }}
+                            {{ post.description|length > 150 ? post.description|slice(0, 150) ~ '...' : post.description  }}
                         </p>
 
                         <footer class="postColumnFoot">

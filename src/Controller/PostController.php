@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/post")
@@ -60,24 +61,30 @@ class PostController extends AbstractController
     /**
      * @Route("/new", name="post_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ValidatorInterface $validator): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-
+        $errors=[];
+        if ($form->isSubmitted()) {
+            $errors = $validator->validate($post);
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('actualites', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('user_actualites', [], Response::HTTP_SEE_OTHER);
         }
+        $left_menu= 'post_new';
 
         return $this->renderForm('profile/new_post.html.twig', [
             'post' => $post,
             'form' => $form,
+            'left_menu' => $left_menu,
+            'errors'=>$errors
         ]);
     }
 
@@ -96,22 +103,33 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="post_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(Request $request, Post $post, ValidatorInterface $validator): Response
     {
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, ['required_image'=>false]);
         $form->handleRequest($request);
-
+        $errors=[];
+        if ($form->isSubmitted()) {
+            $errors = $validator->validate($post);
+            foreach ($errors as $index=>$error) {
+                if($error->getPropertyPath() =="imageFile" )
+                {
+                    $errors->remove($index);
+                }
+            }
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('user_actualites', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->renderForm('post/edit.html.twig', [
+        $left_menu= 'post_new';
+        return $this->renderForm('profile/edit_post.html.twig', [
             'post' => $post,
             'form' => $form,
+            'left_menu' => $left_menu,
+            'errors'=>$errors
         ]);
     }
 
@@ -125,7 +143,7 @@ class PostController extends AbstractController
             $entityManager->remove($post);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 }

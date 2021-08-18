@@ -51,13 +51,13 @@
                                 </li>
                             </ul>
                             <!-- headerSearchForm -->
-                            <form action="#" class="headerSearchForm">
+                            <form action="{{ path('post_index')}}" class="headerSearchForm">
                                 <a class="headerSearchOpener roundedCircle bgWhite" role="button" data-toggle="collapse" href="#headerSearchFormcollapse" aria-expanded="false" aria-controls="headerSearchFormcollapse"><i class="fi flaticon-search btnOpen"></i><i class="fas fa-times btnClose"></i></a>
                                 <!-- headerSearchFormcollapse -->
                                 <div class="collapse searchFormcollapse bgWhite" id="headerSearchFormcollapse" aria-expanded="false" role="form">
                                     <div class="form-group form-group-lg">
                                         <label for="s" class="labelIcn"><i class="fi flaticon-search"></i></label>
-                                        <input type="search" id="s" class="form-control elemenBlock" placeholder="Search&hellip;">
+                                        <input type="search" id="s" name="search" class="form-control elemenBlock" placeholder="Rechercher&hellip;">
                                     </div>
                                 </div>
                             </form>
@@ -101,33 +101,33 @@
                             {% if app.user %}
                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                                     <li>
-                                        <a href="/admin" >
+                                        <a href="{{ path('dashboard') }}" >
                                             <i class="fi flaticon-squares icn"></i>
                                             <strong class="text fwNormal hidden-xs hidden-sm">Espace admin</strong>
                                         </a>
                                     </li>
                                 {% endif %}
                             <li>
-                                <a href="/profile" >
+                                <a href="{{ path('user_profile') }}" >
                                     <i class="fi flaticon-social icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">Mon profile</strong>
                                 </a>
                             </li>
                             <li>
-                                <a href="/logout" >
+                                <a href="{{ path('app_logout') }}" >
                                     <i class="fi flaticon-logout icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">Se déconnecter</strong>
                                 </a>
                             </li>
                             {% else %}
                             <li>
-                                <a href="/login" >
+                                <a href="{{ path('app_login') }}" >
                                     <i class="fi flaticon-social icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">Se connecter</strong>
                                 </a>
                             </li>
                             <li>
-                                <a href="/register" >
+                                <a href="{{ path('app_register') }}" >
                                     <i class="fi flaticon-edit icn"></i>
                                     <strong class="text fwNormal hidden-xs hidden-sm">S'inscrire</strong>
                                 </a>

@@ -2,13 +2,19 @@
     <div class="col-xs-12" >
         <div class="form-group">
             <label for="">{{ form_label(form.title)}}</label>
-            {{ form_widget(form.title, {'attr':{'class': 'form-control'}})}}
+            {{ form_widget(form.title, {'attr':{'class': 'form-control is-required'}})}}
+        </div>
+    </div>
+    <div class="col-xs-12" >
+        <div class="form-group">
+            <label for="">{{ form_label(form.description)}}</label>
+            {{ form_widget(form.description, {'attr':{'class': 'form-control is-required'}})}}
         </div>
     </div>
     <div class="col-xs-12" >
         <div class="form-group">
             <label for="">{{ form_label(form.content)}}</label>
-            {{ form_widget(form.content, {'attr':{'class': 'form-control'}})}}
+            {{ form_widget(form.content, {'attr':{'class': 'form-control summernote is-required'}})}}
         </div>
     </div>
 
@@ -21,11 +27,11 @@
     <div class="col-xs-12" id="registration_form_photoFile_div">
         <div class="form-group">
             <label for="registration_form_photoFile">{{ form_label(form.imageFile)}}</label>
-            {{ form_widget(form.imageFile, {'attr':{'class': 'form-control'}})}}
+            {{ form_widget(form.imageFile, {'attr':{'class': 'form-control is-required'}})}}
         </div>
     </div>
     <br><br>
     <div class="col-xs-12" id="registration_form_photoFile_div">
-        <button type="btn" class="btn alighRight btnSecondary buttonL fontNeuron">Ajouter</button>
+        <button type="btn" id="save_article" class="btn alighRight btnSecondary buttonL fontNeuron" >Valider</button>
     </div>
 {{ form_end(form) }}

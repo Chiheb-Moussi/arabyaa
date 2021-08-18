@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Ajouter Article{% endblock %}
 {% block stylesheets %}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
 <style>
 main {
     background: #f0f9fb;
@@ -12,6 +14,7 @@ main {
 {% block body %}
 
     <!-- content -->
+    
     <section id="content" class="container pabIndent" style="padding-top:50px">
         <!-- contentFiltersHeadingWrap -->
         <header class="contentFiltersHeadingWrap row">
@@ -21,70 +24,65 @@ main {
         </header>
         <!-- userProfile -->
         <div class="userProfile">
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-lg-3">
-            <!-- profileSidebar -->
-            <aside class="profileSidebar">
-                <header class="head">
-                <div class="imgProfile">
-                    <img src="{{ vich_uploader_asset(app.user) }}" alt="" width="74" height="74">
-                </div>
-                <div class="info">
-                    <span class="text">{{ app.user.nom ~' '~ app.user.prenom}}</span>
-                </div>
-                </header>
-                <ul class="navUser list-unstyled">
-                <li >
-                    <a href="{{ path('user_profile') }}">
-                    <i class="far fa-user"></i>
-                    <span>Paramètres du compte</span>
-                    </a>
-                </li>
-                <li >
-                    <a href="{{ path('actualites')}}">
-                    <i class="fi flaticon-house"></i>
-                    <span>Mes actualités</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="far fa-heart"></i>
-                    <span>Mes favoris</span>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="{{ path('post_new') }}">
-                    <i class="fa fa-plus"></i>
-                    <span>Ajouter actualité</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="fa fa-sign-out-alt"></i>
-                    <span>Se déconnecter</span>
-                    </a>
-                </li>
-                </ul>
-            </aside>
-            </div>
-            <div class="col-xs-12 col-sm-8 col-lg-9">
-            <!-- accountData -->
-                    <div class="accountData">
-                        <div class="head">
-                        <h4 class="fontNeuron">Créer un article</h4>
-                        
+            <div class="row">
+                {% include "profile/_left_menu.html.twig" %}
+                <div class="col-xs-12 col-sm-8 col-lg-9">
+                    {% for error in errors %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{ error.message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <!-- propertiesList -->
-                        <div class="propertiesList">
+                    {% endfor %}
+                <!-- accountData -->
+                        <div class="accountData">
+                            <div class="head">
+                            <h4 class="fontNeuron">Créer un article</h4>
                             
-                            {{ include('profile/_form.html.twig') }}
+                            </div>
+                            <!-- propertiesList -->
+                            <div class="propertiesList">
+                                
+                                {{ include('profile/_form.html.twig') }}
+                            </div>
                         </div>
-                    </div>
-                    <!-- pagination -->
-            
+                        <!-- pagination -->
+                
+                </div>
             </div>
-        </div>
         </div>
     </section>
     
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="{{ asset('js/summernote-fr.js') }} "></script>
+<script>
+
+$(document).ready(function(){
+
+    $('.is-required').on('change', function(){
+        if($(this).val()) {
+            $(this).removeClass('has-error');
+            $('#save_article').prop( "disabled", false );
+        }else {
+            $(this).addClass('has-error');
+            $('#save_article').prop( "disabled", true );
+        }
+    });
+
+    $('.summernote').summernote({
+        
+        focus: false,
+        tabsize: 2,
+        lang: 'fr-FR',
+        lineHeight:1.5,
+        minHeight: 300            
+    })
+});
+
+</script>
+
 {% endblock %}

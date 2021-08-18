@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -31,6 +32,17 @@ class Diplome
 
     /**
      * @Vich\UploadableField(mapping="user_diplome", fileNameProperty="diplome")
+     * @Assert\File(
+     *      maxSize = "2M",
+     *      maxSizeMessage = "La taille de Diplôme ne doit pas dépasser 2M !",
+     *      mimeTypes = {
+     *          "application/pdf", 
+     *          "application/x-pdf",
+     *          "image/png", 
+     *          "image/jpeg"
+     *      },
+     *      mimeTypesMessage = "Le format de Diplôme doit être de type PDF ou PNG ou JPEG !"
+     * )
      * 
      * @var File|null
      */

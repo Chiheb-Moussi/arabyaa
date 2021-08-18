@@ -7,6 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,24 +25,12 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', EmailType::class)
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'label'=> 'Mot de passe',
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
+                
             ])
             ->add('userType', ChoiceType::class, array(
                 'choices' => User::getAvailableUserTypes(),
@@ -54,11 +45,13 @@ class RegistrationFormType extends AbstractType
             ->add('dateNaissance', DateType::class, [
                 'label'=>'Date de naissance',
                 'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'html5' => false
                 
             ])
             ->add('adresse')
             ->add('ville')
-            ->add('codePostal', TextType::class,['label'=>'Code Postal'])
+            ->add('codePostal', IntegerType::class,['label'=>'Code Postal'])
             ->add('gouvernerat')
             ->add('pays')
             ->add('tel', TextType::class,['label'=>'Téléphone'])
@@ -78,19 +71,12 @@ class RegistrationFormType extends AbstractType
                 'image_uri' => true,
                 'label' => 'Photo'
             ])
-            ->add('passportFile', VichFileType::class, [
-                'required' => false,
-                'allow_delete' => false,
-                'delete_label' => 'Supprimer',
-                'asset_helper' => true,
-                'label' => 'Passport'
-            ])
             ->add('cinFile', VichFileType::class, [
                 'required' => false,
                 'allow_delete' => false,
                 'delete_label' => 'Supprimer',
                 'asset_helper' => true,
-                'label' => ' Carte d\'identité Nationale'
+                'label' => ' Carte d\'identité Nationale ou Passport'
             ])
             ->add('cvFile', VichFileType::class, [
                 'required' => false,
@@ -104,7 +90,7 @@ class RegistrationFormType extends AbstractType
                 'allow_delete' => false,
                 'delete_label' => 'Supprimer',
                 'asset_helper' => true,
-                'label' => 'Lettre de Motivation'
+                'label' => 'Lettre de Motivation*'
             ])
             ->add('bulletinFile', VichFileType::class, [
                 'required' => false,
@@ -120,6 +106,9 @@ class RegistrationFormType extends AbstractType
                 'required' => false,
                 'label'=>'Diplômes',
                 'by_reference' => false,
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control'],
+                ],
             ]);
         ;
     }

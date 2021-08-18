@@ -5,11 +5,14 @@
         <title>{% block title %}{% endblock %}</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
         <!-- include the site bootstrap stylesheet -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        
         <!-- include the site stylesheet -->
         <link rel="stylesheet" href="{{ asset('css/fancybox.css') }}">
         <!-- include the site stylesheet -->
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         {% block stylesheets %}
             
@@ -35,6 +38,14 @@
                 {% include "includes/footer.html.twig" %}
                 
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        {% block modal %}{% endblock %}
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             
         </div>
 
@@ -44,6 +55,7 @@
         <script src="{{ asset('js/plugins.js') }}"></script>
         <!-- include bootstrap JavaScript -->
         <script src="{{ asset('js/bootstrap-slider.min.js') }}"></script>
+        
         <!-- include custom JavaScript -->
         <script src="{{ asset('js/jquery.main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/init.js') }}"></script>

@@ -19,6 +19,9 @@ class PostType extends AbstractType
             ->add('title', TextType::class,[
                 'label' => 'Titre de l\'article'
             ])
+            ->add('description', TextareaType::class,[
+                'label' => 'Description de l\'article'
+            ])
             ->add('content', TextareaType::class,[
                 'label' => 'Contenu de l\'article'
             ])
@@ -31,11 +34,11 @@ class PostType extends AbstractType
                 'label' => 'Type d\'article'
             ))
             ->add('imageFile', VichImageType::class, [
-                'required' => false,
+                'required' => $options['required_image'],
                 'allow_delete' => false,
                 'delete_label' => 'Supprimer',
                 'asset_helper' => true,
-                'image_uri' => true,
+                'image_uri' => false,
                 'label' => 'Image'
             ])
         ;
@@ -45,6 +48,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
+            'required_image'=> true
         ]);
     }
 }
