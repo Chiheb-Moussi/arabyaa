@@ -31,21 +31,21 @@ main {
                             <div class="col-xs-12 col-sm-6 col-lg-4">
                                 <div class="cardInfo bgColorBlue">
                                     <span class="cardInfo__title">Nombre des actualités</span><br>
-                                    <span class="cardInfo__bigNumber">299</span>
+                                    <span class="cardInfo__bigNumber">{{ count_posts }}</span>
                                     <i class="fa fa-3x fa-newspaper"></i>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-lg-4">
                                 <div class="cardInfo bgColorLightBlue">
                                     <span class="cardInfo__title">Nombre des utilisateurs</span><br>
-                                    <span class="cardInfo__bigNumber">500</span>
+                                    <span class="cardInfo__bigNumber">{{ count_users }}</span>
                                     <i class="fa fa-3x fa-users"></i>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-lg-4">
                                 <div class="cardInfo bgColorPrimary">
                                     <span class="cardInfo__title">Nouvelles inscriptions</span><br>
-                                    <span class="cardInfo__bigNumber">10</span>
+                                    <span class="cardInfo__bigNumber">{{ count_new_users }}</span>
                                     <i class="fa fa-3x fa-user-plus"></i>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@ main {
 
                         <div class="row" style="margin-top:20px">
                             <div class="col-lg-12">
-                                <h4 class="fontNeuron">Nombre des utilisateurs inscrits par rapport au mois de l'année 2021</h4>
+                                <h4 class="fontNeuron">Nombre des utilisateurs inscrits par rapport au mois de cette année</h4>
                                 <div>
                                     <canvas id="usersChart"></canvas>
                                 </div>
@@ -62,9 +62,9 @@ main {
 
                         <div class="row" style="margin-top:20px">
                             <div class="col-lg-12">
-                                <h4 class="fontNeuron">Nombre des actualités postulés par rapport au mois de l'année 2021</h4>
+                                <h4 class="fontNeuron">Nombre des actualités postulés par rapport au mois de cette année</h4>
                                 <div>
-                                    <canvas id="newsChart"></canvas>
+                                    <canvas id="postsChart"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -82,36 +82,61 @@ main {
     $(document).ready(function(){
         
 
+        
         var labels = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
+            {% for label in labels %}
+                '{{label}}',
+            {% endfor %}
         ];
-        var data = {
+        
+        var users_data = {
             labels: labels,
             datasets: [{
-                label: 'data',
+                label: 'utlisateurs',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45],
+                data: [
+                    {% for data in users_data %}
+                        {{ data }},
+                    {% endfor %}
+                ],
             }]
         }; 
-        var config = {
+
+        
+        var config_users = {
             type: 'line',
-            data,
+            data:users_data,
+            options: {}
+        };
+        
+        var usersChart = new Chart(
+            document.getElementById('usersChart'),
+            config_users
+        );   
+
+        var posts_data = {
+            labels: labels,
+            datasets: [{
+                label: 'Actualités',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [
+                    {% for data in posts_data %}
+                        {{ data }},
+                    {% endfor %}
+                ],
+            }]
+        }; 
+
+        var config_posts = {
+            type: 'line',
+            data:posts_data,
             options: {}
         };
         var usersChart = new Chart(
-            document.getElementById('usersChart'),
-            config
-        );     
-
-        var usersChart = new Chart(
-            document.getElementById('newsChart'),
-            config
+            document.getElementById('postsChart'),
+            config_posts
         );   
 
     });

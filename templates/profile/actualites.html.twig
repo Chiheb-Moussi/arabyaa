@@ -22,56 +22,21 @@ main {
         <!-- userProfile -->
         <div class="userProfile">
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-lg-3">
-            <!-- profileSidebar -->
-            <aside class="profileSidebar">
-                <header class="head">
-                <div class="imgProfile">
-                    <img src="{{ vich_uploader_asset(app.user) }}" alt="" width="74" height="74">
-                </div>
-                <div class="info">
-                    <span class="text">{{ app.user.nom ~' '~ app.user.prenom}}</span>
-                </div>
-                </header>
-                <ul class="navUser list-unstyled">
-                <li >
-                    <a href="{{ path('user_profile') }}">
-                    <i class="far fa-user"></i>
-                    <span>Paramètres du compte</span>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="{{ path('actualites')}}">
-                    <i class="fi flaticon-house"></i>
-                    <span>Mes actualités</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="far fa-heart"></i>
-                    <span>Mes favoris</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('post_new') }}">
-                    <i class="fa fa-plus"></i>
-                    <span>Ajouter actualité</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="fa fa-sign-out-alt"></i>
-                    <span>Se déconnecter</span>
-                    </a>
-                </li>
-                </ul>
-            </aside>
-            </div>
+            {% include "profile/_left_menu.html.twig" %}
             <div class="col-xs-12 col-sm-8 col-lg-9">
             <!-- accountData -->
                     <div class="accountData">
                         <div class="head">
                         <h4 class="fontNeuron">Liste des actualites</h4>
+                        <div class="sortGroup">
+                            <strong class="groupTitle fwNormal">Filtrer par:</strong>
+                            <div class="dropdown">
+                                <button aria-expanded="true" aria-haspopup="false" data-toggle="dropdown" id="sortGroup" type="button" class="dropdown-toggle buttonReset">{{ selected_type }} <i class="icn fas fa-chevron-down"></i></button>
+                                <ul aria-labelledby="sortGroup" class="dropdown-menu dropdown-menu-right">
+                                    <li><a onclick="addUrlParameter('type', '{{ not_selected_type }}')">{{ not_selected_type }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
                         
                         </div>
                         <!-- propertiesList -->
@@ -84,9 +49,9 @@ main {
                                         <a href=""><img src="{{ vich_uploader_asset(post) }}" alt="photo" width="100" height="100"></a>
                                     </div>
                                     <div class="textBox">
-                                        <h4 class="fontNeuron"><a href="properties-single1.html">{{ post.title }}</a></h4>
+                                        <h4 class="fontNeuron"><a href="{{ path('post_show',{slug: post.slug}) }}">{{ post.title }}</a></h4>
                                         <p>
-                                            {{ post.content|length > 50 ? post.content|slice(0, 150) ~ '...' : post.content  }}
+                                            {{ post.description|length > 50 ? post.description|slice(0, 150)  ~ '...' : post.description  }}
                                         </p>
                                         <div class="priceArea">
                                         <span class="price fontNeuron">{{ post.user.username }}</span>
@@ -97,8 +62,14 @@ main {
                                 <div class="btnArea">
                                     <span class="status fontNeuron bgColorPrimaryDark">Publié</span>
                                     <ul class="links list-unstyled">
-                                        <li><a href="{{ path('post_show',{slug: post.slug}) }}"><i class="fa fa-eye"></i>Voir</a></li>
-                                        <li><a href="#" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li>
+                                        <li><a href="{{ path('post_show',{slug: post.slug}) }}" title="voir"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="{{ path('post_edit',{slug: post.slug}) }}" title="modifier"><i class="fa fa-pencil-alt"></i></a></li>
+                                        <li><form method="post" action="{{ path('post_delete', {'id': post.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette actualité?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                                            <button class="btnLinkDelete" title="supprimer"><i class="far fa-window-close"></i> </a></button>
+                                        </form>
+                                        </li>
+                                        {# <li><a href="#" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li> #}
                                     </ul>
                                 </div>
                             </article>

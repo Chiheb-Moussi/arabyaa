@@ -76,7 +76,7 @@
                             </p>
 
                             <p class="post_content">
-                                {{ actualite.content|length > 150 ? actualite.content|slice(0, 150) ~ '...' : actualite.content  }}
+                                {{ actualite.description|length > 150 ? actualite.description|slice(0, 150) ~ '...' : actualite.description  }}
                             </p>
 
                             <footer class="postColumnFoot">

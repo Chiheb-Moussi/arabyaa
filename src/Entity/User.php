@@ -13,10 +13,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Il y a déjà un compte avec cet email!")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Vich\Uploadable
  */
@@ -74,6 +75,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(
+     *      message= "L'email est obligatoire !"
+     *      
+     * )
+     * @Assert\Email(
+     *     message = "L'email {{ value }} n'est pas valide !"
+     * )
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -88,6 +96,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @var string The hashed password
+     * @Assert\NotBlank(
+     *      message= "Mot de passe est obligatoire !"
+     * )
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 4096,
+     *      minMessage = "Votre mot de passe doit dépasser au minimum {{ limit }} caractères !",
+     *      maxMessage = "Votre mot de passe ne doit pas dépasser {{ limit }} caractères !"
+     * )
+     */
+    public $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -120,6 +142,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $ville;
 
     /**
+     * @Assert\Type(
+     *      type="integer",
+     *      message = "Le code postal {{ value }} est incorrect !"
+     * )
      * @ORM\Column(type="integer", nullable=true)
      */
     private $codePostal;
@@ -133,28 +159,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $pays;
-
+        
     /**
+     * @Assert\Length(
+     *      min = 8, 
+     *      max = 20, 
+     *      minMessage = "Le numéro de Téléphone doit dépasser au minimum {{ limit }} 8 numéros !", 
+     *      maxMessage = "Le numéro de Téléphone ne doit pas dépasser {{ limit }} 20 numéros !"
+     * )
+     * @Assert\Regex(
+     *      pattern ="/^[0-9\-\(\)\/\+\s]*$/", 
+     *      message ="Le numéro de Téléphone est incorrect !"
+     * ) 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel;
 
     /**
+     * @Assert\Length(
+     *      min = 8, 
+     *      max = 20, 
+     *      minMessage = "Le numéro de Whatsapp doit dépasser au minimum {{ limit }} 8 numéros !", 
+     *      maxMessage = "Le numéro de Whatsapp ne doit pas dépasser {{ limit }} 20 numéros !"
+     * )
+     * @Assert\Regex(
+     *      pattern ="/^[0-9\-\(\)\/\+\s]*$/", 
+     *      message ="Le numéro de Whatsapp est incorrect !"
+     * ) 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $whatsapp;
 
     /**
+     * @Assert\Url(
+     *    message = "Le lien Facebook {{ value }} n'est pas valide !"
+     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fbLink;
 
     /**
+     * @Assert\Iban(
+     *     message="Ce n'est pas un numéro de compte bancaire (IBAN) valide !"
+     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $iban;
 
     /**
+     * @Assert\Bic(
+     *      message="Ce n'est pas un code (BIC) valide !"
+     * )
      * @ORM\Column(type="string", length=255, nullable=true, nullable=true)
      */
     private $bic;
@@ -185,6 +240,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $ministere;
 
     /**
+     * @Assert\Url(
+     *    message = "Le lien {{ value }} n'est pas valide !"
+     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $webLink;
@@ -197,6 +255,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
 
     /**
+     * @Assert\Valid
      * @ORM\OneToMany(targetEntity=Diplome::class, mappedBy="user", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $diplomes;
@@ -207,6 +266,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $photo;
 
     /**
+     * @Assert\Image(
+     *      maxSize = "2M",
+     *      maxSizeMessage = "La taille de photo ne doit pas dépasser 2M !",
+     *      mimeTypes = {"image/png", "image/jpeg"},
+     *      mimeTypesMessage= "la photo doit être de type PNG ou JPEG ou JPG !"
+     * )
      * @Vich\UploadableField(mapping="user_photo", fileNameProperty="photo")
      * 
      * @var File|null
@@ -231,6 +296,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $cin;
 
     /**
+     * @Assert\File(
+     *      maxSize = "2M",
+     *      maxSizeMessage = "La taille de CIN ou passport ne doit pas dépasser 2M !",
+     *      mimeTypes = {
+     *          "application/pdf", 
+     *          "application/x-pdf",
+     *          "image/png", 
+     *          "image/jpeg"
+     *      },
+     *      mimeTypesMessage = "Le format de CIN ou passport doit être de type PDF ou PNG ou JPEG !"
+     * )
      * @Vich\UploadableField(mapping="user_cin", fileNameProperty="cin")
      * 
      * @var File|null
@@ -244,6 +320,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Vich\UploadableField(mapping="user_cv", fileNameProperty="cv")
+     * @Assert\File(
+     *      maxSize = "2M",
+     *      maxSizeMessage = "La taille de Curriculum Vitae ne doit pas dépasser 2M !",
+     *      mimeTypes = {
+     *          "application/pdf", 
+     *          "application/x-pdf",
+     *          "image/png", 
+     *          "image/jpeg"
+     *      },
+     *      mimeTypesMessage = "Le format de Curriculum Vitae doit être de type PDF ou PNG ou JPEG !"
+     * )
      * 
      * @var File|null
      */
@@ -256,6 +343,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Vich\UploadableField(mapping="user_motivation_letter", fileNameProperty="motivationLetter")
+     * @Assert\File(
+     *      maxSize = "2M",
+     *      maxSizeMessage = "La taille de Lettre de Motivation ne doit pas dépasser 2M !",
+     *      mimeTypes = {
+     *          "application/pdf", 
+     *          "application/x-pdf",
+     *          "image/png", 
+     *          "image/jpeg"
+     *      },
+     *      mimeTypesMessage = "Le format de Lettre de Motivation doit être de type PDF ou PNG ou JPEG !"
+     * )
      * 
      * @var File|null
      */
@@ -268,6 +366,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Vich\UploadableField(mapping="user_bulletin", fileNameProperty="bulletin")
+     * @Assert\File(
+     *      maxSize = "2M",
+     *      maxSizeMessage = "La taille de Bulltein Numéro 3 ne doit pas dépasser 2M !",
+     *      mimeTypes = {
+     *          "application/pdf", 
+     *          "application/x-pdf",
+     *          "image/png", 
+     *          "image/jpeg"
+     *      },
+     *      mimeTypesMessage = "Le format de Bulltein Numéro 3 doit être de type PDF ou PNG ou JPEG !"
+     * )
      * 
      * @var File|null
      */
@@ -289,6 +398,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $message_refus;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $oldEmail;
 
     
 
@@ -951,9 +1070,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getUsername();
     }
 
-    public function getDescription(): ?string
+    public function getDescription($length=0): ?string
     {
-        return $this->description;
+        $description= $this->description;
+        if($length) {
+            if(strlen($description)> $length) {
+                return substr($description,0,$length).'...';
+            }
+        }
+        return $description;
     }
 
     public function setDescription(?string $description): self
@@ -962,6 +1087,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getMessageRefus(): ?string
+    {
+        return $this->message_refus;
+    }
+
+    public function setMessageRefus(?string $message_refus): self
+    {
+        $this->message_refus = $message_refus;
+
+        return $this;
+    }
+
+    public function getOldEmail(): ?string
+    {
+        return $this->oldEmail;
+    }
+
+    public function setOldEmail(?string $oldEmail): self
+    {
+        $this->oldEmail = $oldEmail;
+
+        return $this;
+    }
+
+
 
     
 

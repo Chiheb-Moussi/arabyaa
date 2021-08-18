@@ -16,15 +16,13 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        /*if ($user->isRefused()) {
-            // the message passed to this exception is meant to be displayed to the user
+        if ($user->isRefused()) {
             throw new CustomUserMessageAccountStatusException('Votre compte a été refusé.');
         }
 
         if (!$user->isApproved()) {
-            // the message passed to this exception is meant to be displayed to the user
             throw new CustomUserMessageAccountStatusException('Votre compte n\'est pas encore approuvé.');
-        }*/
+        }
     }
 
     public function checkPostAuth(UserInterface $user): void

@@ -8,6 +8,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use DoctrineExtensions\Query\Mysql\Month;
+use DoctrineExtensions\Query\Mysql\Year;
+
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -64,4 +67,35 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+
+    public function getAdminEmails()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.email')
+            ->where('u.userType = :adminType')
+            ->setParameter('adminType', User::USER_TYPE_SUPER_ADMIN)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getCountUsers($status='',$month=0) 
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)');
+        if($status) {
+            $qb->andWhere('u.status =:status')
+                ->setParameter('status', $status);
+        }
+        if($month > 0)
+        {
+            $year = date('Y');
+            $qb->andWhere('MONTH(u.createdAt) = :month ')
+                ->setParameter('month', $month)
+                ->andWhere('YEAR(u.createdAt) = :year ')
+                ->setParameter('year', $year);
+        }
+
+        $count_users = $qb->getQuery()->getOneOrNullResult();
+        return $count_users[1];
+    }
 }

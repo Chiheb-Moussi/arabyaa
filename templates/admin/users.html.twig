@@ -53,10 +53,10 @@ main {
                             <article class="propertyRow">
                                 <div class="info">
                                     <div class="imgProfile" style="border-radius: 50%">
-                                        <a href="{{ path('user_detail',{id: user.id}) }}"><img src="{{ vich_uploader_asset(user) }}" alt="photo" width="100" height="100"></a>
+                                        <a href="{{ path('user_detail',{id: user.id}) }}"><img src="{{ vich_uploader_asset(user) }}" alt="photo" ></a>
                                     </div>
                                     <div class="textBox">
-                                        <h4 class="fontNeuron"><a href="properties-single1.html">{{ user.username }}</a></h4>
+                                        <h4 class="fontNeuron"><a href="{{ path('user_detail',{id: user.id}) }}">{{ user.username }}</a></h4>
                                         <address><i class="fi flaticon-pin-1"></i>{{ user.fullAddress }} </address>
                                         <div class="priceArea">
                                         <span class="price fontNeuron">{{ user.userType }}</span>
@@ -76,7 +76,10 @@ main {
                                     <ul class="links list-unstyled">
                                         <li><a href="{{ path('user_detail',{id: user.id}) }}"><i class="fa fa-eye"></i>Voir</a></li>
                                         {% if user.userType != 'Super Admin'%}
-                                            <li><a href="{{ path('deleteUser', {id: user.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li>
+                                            {% if app.user != user %}
+                                                <li><a href="{{ path('deleteUser', {id: user.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?');"><i class="far fa-window-close"></i>Supprimer</a></li>
+                                            {% endif %}
+                                            
                                         {% endif %}
                                     </ul>
                                 </div>
