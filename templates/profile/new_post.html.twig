@@ -57,7 +57,7 @@ main {
 {% endblock %}
 
 {% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.12/dist/summernote-lite.min.js"></script>
 <script src="{{ asset('js/summernote-fr.js') }} "></script>
 <script>
 
@@ -80,7 +80,8 @@ $(document).ready(function(){
         lang: 'fr-FR',
         lineHeight:1.5,
         minHeight: 300            
-    })
+    });
+    
 });
 
 </script>
