@@ -93,10 +93,29 @@
                                 {{ form_widget(registrationForm.email, {'attr':{'class': 'form-control '~ error_email}})}}
                             </div>
                         </div>
+                        <div class="col-xs-6" id="registration_form_email_verif_div">
+                            <div class="form-group">
+                                <label for="registration_form_email"><label for="registration_form_email_verif" class="required">Retapez l'email</label></label>
+                                
+                                <input type="email" id="registration_form_email_verif" name="" required="required" class="form-control" autocomplete="off">
+                                <small id="email_verif_text" style="color: #da7171;display:none">Email incorrect</small>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-xs-6" id="registration_form_plainPassword_div">
                             <div class="form-group">
                                 <label for="registration_form_plainPassword">{{ form_label(registrationForm.plainPassword)}}</label>
                                 {{ form_widget(registrationForm.plainPassword, {'attr':{'class': 'form-control '~ error_plainPassword}})}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6" id="registration_form_plainPassword_verif_div">
+                            <div class="form-group">
+                                <label for="registration_form_plainPassword"><label for="registration_form_plainPassword_verif" class="required">Retapez la mot de passe</label></label>
+                                
+                                <input type="password" id="registration_form_plainPassword_verif" name="" required="required" class="form-control" autocomplete="off">
+                                <small id="plainPassword_verif_text" style="color: #da7171;display:none">Mot de passe incorrect</small>
                             </div>
                         </div>
                     </div>
@@ -106,12 +125,26 @@
                         <h2 class="fontNeuron">Information complémentaires</h2>
                     </header>
                     <div class="row">
+                        <div class="col-xs-6" id="registration_form_chidren_div" data-count="1">
+                            <div class="form-group">
+                                <label for="registration_form_dateNaissance">Email de l'enfant</label>
+                                
+                                <div class="children_emails">
+                                    <div>
+                                        <input type="email" name="children[1]" id="children_1" class="form-control" placeholder="email"><a href="#" style="opacity: 0;pointer-events: none;"><i class="fa-lg fa fa-trash"></i></a>
+                                    </div>
+                                </div>
+                                <a href="#" id="add_child">Ajouter un autre enfant</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-6" id="registration_form_dateNaissance_div">
                             <div class="form-group">
                                 <label for="registration_form_dateNaissance">{{ form_label(registrationForm.dateNaissance)}}</label>
                                 <div class="input-group date">
                                     <span class="icnInput far fa-calendar-alt"></span>
-                                    {{ form_widget(registrationForm.dateNaissance, {'attr':{'class': 'form-control datepicker','data-dateformat': 'dd/mm/yyyy'}}) }}
+                                    {{ form_widget(registrationForm.dateNaissance, {'attr':{'class': 'form-control datepicker','data-dateformat': 'dd/mm/yyyy', 'autocomplete':'off'}}) }}
                                 </div>
                             </div>
                         </div>
@@ -298,9 +331,59 @@
     <script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}"></script>
     <script src="{{ asset('js/date.js') }}"></script>
     <script>
+
+        function delete_child(e,id_child) {
+            e = e || window.event;
+            e.preventDefault();
+            $('#' + id_child).parent().remove();
+            var length = $('.children_emails div').length
+            if(length < 4) {
+                $('#add_child').show();
+            }
+        }
         $(document).ready(function(){
 
+            //add children
+            $('#add_child').on('click',function(event){
+                event.preventDefault();
+                var count = $('#registration_form_chidren_div').data('count');
+                var newCount = parseInt(count)+1;
+                $('.children_emails').append(`
+                    <div>
+                        <input type="email" name="children[${newCount}]" id="children_${newCount}" class="form-control" placeholder="email">
+                        <a href="#" class="remove-tag" style="color: #da7171" onclick="delete_child(event,'children_${newCount}')" title="Supprimer enfant">
+                            <i class="fa-lg fa fa-trash"></i>
+                        </a>
+                    </div>
+                `);
+                var length = $('.children_emails div').length
+                if(length > 3) {
+                    $(this).hide();
+                }
+            });
+            
+            //double check email
+            $('#registration_form_email_verif').on('keyup', function(){
+                var email_value = $('#registration_form_email').val();
+                var second_email = $(this).val();
+                if(email_value !== second_email) {
+                    $('#email_verif_text').show();
+                }else {
+                    $('#email_verif_text').hide();
 
+                }
+            });
+            //double check password
+            $('#registration_form_plainPassword_verif').on('keyup', function(){
+                var plainPassword_value = $('#registration_form_plainPassword').val();
+                var second_plainPassword = $(this).val();
+                if(plainPassword_value !== second_plainPassword) {
+                    $('#plainPassword_verif_text').show();
+                }else {
+                    $('#plainPassword_verif_text').hide();
+
+                }
+            });
             // add diplomes
             $('.add-another-collection').click(function (e) {
                 e.preventDefault();
@@ -398,8 +481,16 @@
                         $('#registration_form_email').addClass('has-error');
                         errors++
                     }
+                    if(!$('#registration_form_email_verif').val()) {
+                        $('#registration_form_email_verif').addClass('has-error');
+                        errors++
+                    }
                     if(!$('#registration_form_plainPassword').val()) {
                         $('#registration_form_plainPassword').addClass('has-error');
+                        errors++
+                    }
+                    if(!$('#registration_form_plainPassword_verif').val()) {
+                        $('#registration_form_plainPassword_verif').addClass('has-error');
                         errors++
                     }
                 }
@@ -530,6 +621,7 @@
         function showHideFields() {
             var userType= $('#registration_form_userType').val();
             if(userType==='Etudiant'){
+                $('#registration_form_chidren_div').hide();
                 $('#registration_form_ministere_div').hide();
                 $('#registration_form_webLink_div').hide();
                 $('#registration_form_cvFile_div').hide();
@@ -546,6 +638,7 @@
                 $('#registration_form_iban_div').show();
                 $('#registration_form_bic_div').show();
             }else if(userType==='Parent') {
+                $('#registration_form_chidren_div').show();
                 $('#registration_form_ministere_div').hide();
                 $('#registration_form_webLink_div').hide();
                 $('#registration_form_cvFile_div').hide();
@@ -562,6 +655,7 @@
                 $('#registration_form_iban_div').show();
                 $('#registration_form_bic_div').show();
             }else if(userType==='Enseignant' || userType==='Inspecteur' || userType==='Administrateur') {
+                $('#registration_form_chidren_div').hide();
                 $('#registration_form_ministere_div').hide();
                 $('#registration_form_webLink_div').hide();
                 $('#registration_form_cvFile_div').show();
@@ -578,6 +672,7 @@
                 $('#registration_form_bic_div').show();
                 $('#registration_form_diplomes_div').show();
             }else if(userType==='Ambassadeur') {
+                $('#registration_form_chidren_div').hide();
                 $('#registration_form_ministere_div').hide();
                 $('#registration_form_webLink_div').hide();
                 $('#registration_form_cvFile_div').show();
@@ -594,14 +689,13 @@
                 $('#registration_form_iban_div').show();
                 $('#registration_form_bic_div').show();
             }else if(userType==='Partenariat') {
+                $('#registration_form_chidren_div').hide();
                 $('#registration_form_ministere_div').show();
                 $('#registration_form_webLink_div').show();
                 $('#registration_form_cvFile_div').hide();
                 $('#registration_form_bulletinFile_div').hide();
                 $('#registration_form_motivationLetterFile_div').hide();
                 $('#registration_form_diplomes_div').hide();
-                $('#registration_form_nom_div').hide();
-                $('#registration_form_prenom_div').hide();
                 $('#registration_form_ecole_div').hide();
                 $('#registration_form_classe_div').hide();
                 $('#registration_form_cinFile_div').hide();

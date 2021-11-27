@@ -87,6 +87,14 @@ class RegistrationController extends AbstractController
         
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($user->getUserType() == User::USER_TYPE_PARENT) { 
+
+                $children_array=$request->request->get('children',[]);
+                $children= array_values($children_array);
+
+                $user->setChildren($children);
+            }
+            
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(

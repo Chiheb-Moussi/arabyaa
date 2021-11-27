@@ -56,9 +56,9 @@ class RegistrationFormType extends AbstractType
             ->add('pays')
             ->add('tel', TextType::class,['label'=>'Téléphone'])
             ->add('whatsapp')
-            ->add('fbLink', TextType::class,['label'=>'Lien Page Facebook*'])
-            ->add('iban', TextType::class,['label'=>'IBAN'])
-            ->add('bic', TextType::class,['label'=>'BIC'])
+            ->add('fbLink', TextType::class,['label'=>'Lien Page Facebook'])
+            ->add('iban', TextType::class,['label'=>'IBAN (Numéro de compte bancaire international)'])
+            ->add('bic', TextType::class,['label'=>'BIC (code d\'identifiant bancaire)'])
             ->add('ecole', TextType::class,['label'=>'Nom de l´école /College /Lycée'])
             ->add('classe')
             ->add('ministere', TextType::class,['label'=>'Nom du Ministère'])
@@ -109,7 +109,8 @@ class RegistrationFormType extends AbstractType
                 'entry_options' => [
                     'attr' => ['class' => 'form-control'],
                 ],
-            ]);
+            ])
+            ;
         ;
     }
 
