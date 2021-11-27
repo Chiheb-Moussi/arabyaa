@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -145,5 +146,23 @@ class PostController extends AbstractController
         }
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
+    }
+
+    /**
+     * @Route("/favourites/{id}", name="add_favourites")
+     */
+    public function add_favourites(Post $post): Response
+    {
+        $user = $this->getUser();
+        $user->addFavoritePost($post);
+        $em = $this->getDoctrine()->getManager();
+        $response = [];
+        try {
+            $em->flush($user);
+            $response = ['added'=>true];
+        } catch (\Exception $e) {
+            $response = ['added'=>false, 'msg'=>$e->getMessage()];
+        }
+        return new JsonResponse($response);
     }
 }
