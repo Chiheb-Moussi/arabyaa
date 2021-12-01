@@ -3,6 +3,7 @@
     <aside class="profileSidebar">
         <header class="head">
             <div class="imgProfile">
+                
                 <a href="{{ path('user_detail',{id: app.user.id}) }}">
                     <img src="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.username }}" >
                 </a>
