@@ -17,6 +17,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Uid\Uuid;
 use App\Repository\PostRepository;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @Route("/admin")
@@ -211,5 +214,83 @@ class AdminController extends AbstractController
             'selected_type'=>$selected_type,
             'not_selected_type'=>$not_selected_type
         ]);
+    }
+
+    /**
+     * @Route("/export/users", name="export_users")
+     */
+    public function export_users(UserRepository $userRepository)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('List des utilisateurs');
+        $sheet->getCell('A1')->setValue('ID');
+        $sheet->getCell('B1')->setValue('Email');
+        $sheet->getCell('C1')->setValue('Type');
+        $sheet->getCell('D1')->setValue('Nom');
+        $sheet->getCell('E1')->setValue('Prénom');
+        $sheet->getCell('F1')->setValue('Age');
+        $sheet->getCell('G1')->setValue('Date de naissance');
+        $sheet->getCell('H1')->setValue('Pays');
+        $sheet->getCell('I1')->setValue('Ville');
+        $sheet->getCell('J1')->setValue('Gouvernerat');
+        $sheet->getCell('K1')->setValue('Code postal');
+        $sheet->getCell('L1')->setValue('Adresse');
+        $sheet->getCell('M1')->setValue('Téléphone');
+        $sheet->getCell('N1')->setValue('Whatsapp');
+        $sheet->getCell('O1')->setValue('Enfants');
+        $sheet->getCell('P1')->setValue('IBAN');
+        $sheet->getCell('Q1')->setValue('BIC');
+        $sheet->getCell('R1')->setValue('Ecole');
+        $sheet->getCell('S1')->setValue('Classe');
+        $sheet->getCell('T1')->setValue('Ministère');
+        $sheet->getCell('U1')->setValue('Lien Facebook');
+        $sheet->getCell('V1')->setValue('Lien site web');
+        $sheet->getCell('W1')->setValue('Date de l\'inscription');
+
+        $users = $userRepository->getUsers();
+        $list = [];
+        foreach ($users as $user) {
+            $list[] = [
+                $user->getId(),
+                $user->getEmail(),
+                $user->getUserType(),
+                $user->getNom(),
+                $user->getPrenom(),
+                "",
+                $user->getDateNaissance()->format('d/m/Y'),
+                $user->getPays(),
+                $user->getVille(),
+                $user->getGouvernerat(),
+                $user->getCodePostal(),
+                $user->getAdresse(),
+                $user->getTel(),
+                $user->getWhatsapp(),
+                implode(";", $user->getChildren()),
+                $user->getIban(),
+                $user->getBic(),
+                $user->getEcole(),
+                $user->getClasse(),
+                $user->getMinistere(),
+                $user->getFbLink(),
+                $user->getWebLink(),
+                $user->getCreatedAt()->format('d/m/Y')
+            ];
+        }
+
+        $sheet->fromArray($list,null, 'A2', true);
+        $writer = new Xlsx($spreadsheet);
+
+        $contentDisposition = 'attachment; filename="users.xlsx"';
+        $contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+        $response = new StreamedResponse(function () use ($spreadsheet) {
+            $writer = new Xlsx($spreadsheet);
+            $writer->save('php://output');
+        });
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', $contentType);
+        $response->headers->set('Content-Disposition', $contentDisposition);
+        return $response;
     }
 }

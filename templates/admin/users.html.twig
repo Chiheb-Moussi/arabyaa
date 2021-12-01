@@ -6,6 +6,13 @@
 main {
     background: #f0f9fb;
 }
+.accountData .head:before, .accountData .head:after {
+    content: " ";
+    display: none;
+}
+.accountData .head {
+    justify-content: space-between;
+}
 </style>
 {% endblock %}
 
@@ -29,9 +36,9 @@ main {
                     <!-- accountData -->
                     <div class="accountData">
                         <div class="head">
-                        <h4 class="fontNeuron">Liste des utilisaterus</h4>
+                        <a href="{{ path('export_users') }}" class="btn btn-success"><i class="fa fa-file-excel"></i>&nbsp;Exporter Utilisateurs</a>
                         <div class="sortGroup">
-                            <strong class="groupTitle fwNormal">Filtrer par:</strong>
+                            <strong class="groupTitle fwNormal">Type:</strong>
                             <div class="dropdown">
                             <button aria-expanded="true" aria-haspopup="false" data-toggle="dropdown" id="sortGroup" type="button" class="dropdown-toggle buttonReset">{{selected_userType }} <i class="icn fas fa-chevron-down"></i></button>
                             <ul aria-labelledby="sortGroup" class="dropdown-menu dropdown-menu-right">

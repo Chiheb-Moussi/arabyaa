@@ -98,4 +98,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $count_users = $qb->getQuery()->getOneOrNullResult();
         return $count_users[1];
     }
+
+    public function getUsers()
+    {
+        
+        return $this->createQueryBuilder('u')
+            
+            ->andWhere('u.status = :status')
+            ->setParameter('status', User::STATUS_APPROUVE)
+            ->andWhere('u.userType <> :userType')
+            ->setParameter('userType', User::USER_TYPE_SUPER_ADMIN)
+            ->orderBy('u.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+        
+    }
 }

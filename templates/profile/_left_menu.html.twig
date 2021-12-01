@@ -21,12 +21,12 @@
                     <span>Paramètres du compte</span>
                 </a>
             </li>
-            <li {% if left_menu=='user_favoris' %} class="active" {% endif %}>
+            {# <li {% if left_menu=='user_favoris' %} class="active" {% endif %}>
                 <a href="#">
                     <i class="far fa-heart"></i>
                     <span>Mes favoris</span>
                 </a>
-            </li>
+            </li> #}
             {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMINISTRATEUR') %}
                 
             

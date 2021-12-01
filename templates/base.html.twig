@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
@@ -19,7 +19,8 @@
 
         
     </head>
-    <body>
+    <body >
+        <div id="google_translate_element"></div>
 	    <!-- pageWrapper -->
         <div id="pageWrapper">
             <!-- pageMenuPushWrap -->
@@ -53,13 +54,17 @@
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="{{ asset('js/plugins.js') }}"></script>
         <!-- include bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        {# <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> #}
         <script src="{{ asset('js/bootstrap-slider.min.js') }}"></script>
         
         <!-- include custom JavaScript -->
         <script src="{{ asset('js/jquery.main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/init.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+        
+      
+    
+    </script> 
         {% block javascripts %}{% endblock %}
     </body>
 </html>
