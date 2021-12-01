@@ -409,6 +409,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $oldEmail;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $children = [];
+
     
 
 
@@ -1108,6 +1113,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setOldEmail(?string $oldEmail): self
     {
         $this->oldEmail = $oldEmail;
+
+        return $this;
+    }
+
+    public function getChildren(): ?array
+    {
+        return $this->children;
+    }
+
+    public function setChildren(?array $children): self
+    {
+        $this->children = $children;
 
         return $this;
     }
