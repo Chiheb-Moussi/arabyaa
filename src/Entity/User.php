@@ -1129,6 +1129,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getAge()
+    {
+        $year_now = date('Y');
+        $year_birth = intval($this->dateNaissance->format('Y'));
+        return $year_now - $year_birth;
+    }
+
 
 
     

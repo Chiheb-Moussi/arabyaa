@@ -257,7 +257,7 @@ class AdminController extends AbstractController
                 $user->getUserType(),
                 $user->getNom(),
                 $user->getPrenom(),
-                "",
+                $user->getAge(),
                 $user->getDateNaissance()->format('d/m/Y'),
                 $user->getPays(),
                 $user->getVille(),

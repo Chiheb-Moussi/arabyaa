@@ -20,8 +20,12 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator, EventDispatcherInterface $eventDispatcher): Response
     {
-
+        
         $user = new User();
+        $type = $request->query->get('type','');
+        if($type) {
+            $user->setUserType($type);
+        }
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

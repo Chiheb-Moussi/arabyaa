@@ -18,17 +18,100 @@
         </div>
         <div>
             <!-- introSlide -->
-            <article class="introSlide bgCover" style="background-image:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2) ), url({{ asset('images/slide2.jpg') }});">
+            <article class="introSlide bgCover" style="background-image:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2) ), url({{ asset('images/sliders/parent.jpg') }});">
                 <div class="container introSlideHolder">
                     <div class="align">
                         <h1 style="color:#fff;font-size:50px">Bienvenue à Araabya</h1>
                         <p style="color:#fff;">Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed diam nonummy nibh elit</p>
-                        <a href="{{ path('post_index')}}" class="btn btn-primary ">Voir nos actualités</a>
+                        <a href="/register?type=Parent" class="btn btn-primary ">Créer un compte</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div>
+            <!-- introSlide -->
+            <article class="introSlide bgCover" style="background-image:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2) ), url({{ asset('images/sliders/teacher.jpg') }});">
+                <div class="container introSlideHolder">
+                    <div class="align">
+                        <h1 style="color:#fff;font-size:50px">Bienvenue à Araabya</h1>
+                        <p style="color:#fff;">Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed diam nonummy nibh elit</p>
+                        <a href="/register?type=Enseignant" class="btn btn-primary ">Créer un compte</a>
                     </div>
                 </div>
             </article>
         </div>
         
+    </section>
+
+    
+
+    <!-- servicesFetaureBlock -->
+    <section class="servicesFetaureBlock container">
+        <h1 class="fontNeuron blockH text-uppercase text-center"><span>NOS</span> <span class="textSecondary">SERVICES</span></h1>
+        <!-- servicesFetauresList -->
+        <ul class="servicesFetauresList list-unstyled text-center">
+            <li>
+                <a href="#">
+                    <span class="icnHolder roundedCircle">
+                        <img src="{{asset('images/icons/school.png')}}" alt="school">
+                    </span>
+                    <h2 class="fontNeuron text-capitalize">Service 1</h2>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icnHolder roundedCircle">
+                        <img src="{{asset('images/icons/education.png')}}" alt="education">
+                    </span>
+                    <h2 class="fontNeuron text-capitalize">Service 2</h2>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icnHolder roundedCircle">
+                        <img src="{{asset('images/icons/arabic.png')}}" alt="arabic">
+                    </span>
+                    <h2 class="fontNeuron text-capitalize">Service 3</h2>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icnHolder roundedCircle">
+                        <img src="{{asset('images/icons/graduated.png')}}" alt="graduated">
+                    </span>
+                    <h2 class="fontNeuron text-capitalize">Service 4</h2>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- sponsorsBlock -->
+    <section class="homeapp" style="background: url({{ asset('images/school.jpg') }})">
+        <div class="container">
+            <div class="row">
+                <div class="appcontent-area">
+                    <div class="col-xs-12 col-sm-6 col-md-5">
+                        <div class="home-img">
+                            <img src="{{ asset('images/kid.jpg') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-7">
+                        <div class="homeapp-content">
+                            <h2>Qui sommes nous ?</h2>
+                            <div class="description">
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                                the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley 
+                                of type and scrambled it to make a type specimen book. It has survived not only five centuries, 
+                                but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised 
+                                in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more 
+                                recently with desktop publishing software.</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     
     <!-- latestPostsBlock -->
@@ -96,6 +179,103 @@
             </div>
         </div>
     </section>
+    <!-- testimonilasBlock -->
+    <section class="testimonilasBlock testimonilas2">
+        <div class="container">
+            <h1 class="fontNeuron blockH text-uppercase"><span class="bdrBottom">NOS</span> <span class="textSecondary">TÉMOIGNAGES</span></h1>
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <!-- testimonialSlider -->
+                    <div class="slickSlider testimonial-carousel2 testimonialSlider">
+                        <div>
+                            <!-- testimonialColumn -->
+                            <article class="testimonialColumn text-center">
+                                <div class="aligncenter roundedCircle">
+                                    <a href="#">
+                                        <img src="https://via.placeholder.com/184X184" class="roundedCircle" alt="image description">
+                                    </a>
+                                </div>
+                                <h2 class="fontNeuron"><a href="#">The Hermess Family</a></h2>
+                                <p><em>Although we haven’t had many issues but any time there has been an issue you have been incredibly helpful and whenever you have come out for an inspection you have been so personable and absolutely lovely to be around. You are a great addition to the Realtyspace Team and i&hellip;</em></p>
+                            </article>
+                        </div>
+                        <div>
+                            <!-- testimonialColumn -->
+                            <article class="testimonialColumn text-center">
+                                <div class="aligncenter roundedCircle">
+                                    <a href="#">
+                                        <img src="https://via.placeholder.com/184X184" class="roundedCircle" alt="image description">
+                                    </a>
+                                </div>
+                                <div class="textWrap">
+                                    <h2 class="fontNeuron"><a href="#">The Hermess Family</a></h2>
+                                    <p><em>Although we haven’t had many issues but any time there has been an issue you have been incredibly helpful and whenever you have come out for an inspection you have been so personable and absolutely lovely to be around. You are a great addition to the Realtyspace Team and i&hellip;</em></p>
+                                </div>
+                            </article>
+                        </div>
+                        <div>
+                            <!-- testimonialColumn -->
+                            <article class="testimonialColumn text-center">
+                                <div class="aligncenter roundedCircle">
+                                    <a href="#">
+                                        <img src="https://via.placeholder.com/184X184" class="roundedCircle" alt="image description">
+                                    </a>
+                                </div>
+                                <div class="textWrap">
+                                    <h2 class="fontNeuron"><a href="#">The Hermess Family</a></h2>
+                                    <p><em>Although we haven’t had many issues but any time there has been an issue you have been incredibly helpful and whenever you have come out for an inspection you have been so personable and absolutely lovely to be around. You are a great addition to the Realtyspace Team and i&hellip;</em></p>
+                                </div>
+                            </article>
+                        </div>
+                        <div>
+                            <!-- testimonialColumn -->
+                            <article class="testimonialColumn text-center">
+                                <div class="aligncenter roundedCircle">
+                                    <a href="#">
+                                        <img src="https://via.placeholder.com/184X184" class="roundedCircle" alt="image description">
+                                    </a>
+                                </div>
+                                <div class="textWrap">
+                                    <h2 class="fontNeuron"><a href="#">The Hermess Family</a></h2>
+                                    <p><em>Although we haven’t had many issues but any time there has been an issue you have been incredibly helpful and whenever you have come out for an inspection you have been so personable and absolutely lovely to be around. You are a great addition to the Realtyspace Team and i&hellip;</em></p>
+                                </div>
+                            </article>
+                        </div>
+                        <div>
+                            <!-- testimonialColumn -->
+                            <article class="testimonialColumn text-center">
+                                <div class="aligncenter roundedCircle">
+                                    <a href="#">
+                                        <img src="https://via.placeholder.com/184X184" class="roundedCircle" alt="image description">
+                                    </a>
+                                </div>
+                                <div class="textWrap">
+                                    <h2 class="fontNeuron"><a href="#">The Hermess Family</a></h2>
+                                    <p><em>Although we haven’t had many issues but any time there has been an issue you have been incredibly helpful and whenever you have come out for an inspection you have been so personable and absolutely lovely to be around. You are a great addition to the Realtyspace Team and i&hellip;</em></p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- signupFormAside -->
+    <form action="#" class="bgclr signupFormAside style2">
+        <div class="container signupFormAsideHolder">
+            <span class="icnAbsolute elemenBlock fi flaticon-message"></span>
+            <div class="col-xs-12 col-md-offset-2 col-md-6">
+                <h3 class="fontNeuron textSecondary" style="color: #4c58a4;">Sign up for our newsletter.</h3>
+                <p style="color: #8e99a3;">Lorem molestie odio. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control elemenBlock" placeholder="Your email">
+                    <button type="button" class="buttonReset fi flaticon-navigation"></button>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}
 
 {% block javascripts %}
@@ -123,6 +303,9 @@
                 loadPost(time);
             });
 
+            setInterval(function(){
+                $('.slick-next.slick-arrow').trigger('click');
+            },5000);
             
 
             
