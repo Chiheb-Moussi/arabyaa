@@ -4,6 +4,11 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}" />
+<link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -342,7 +347,18 @@
             }
         }
         $(document).ready(function(){
+            
+            var phoneInputField = document.querySelector("#registration_form_tel");
+            var phoneInput = window.intlTelInput(phoneInputField, {
+                utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
 
+            var whatsappInputField = document.querySelector("#registration_form_whatsapp");
+            var whatsappInput = window.intlTelInput(whatsappInputField, {
+                utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
             //add children
             $('#add_child').on('click',function(event){
                 event.preventDefault();

@@ -51,7 +51,6 @@ class RegistrationController extends AbstractController
         
         if ($form->isSubmitted()) {
             
-            
             $validator_errors = $validator->validate($user);
             foreach ($validator_errors as $error) {
                 if($error->getPropertyPath() == 'email') {
